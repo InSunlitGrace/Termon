@@ -3,7 +3,7 @@ OBJ = $(SRC:.c=.o)
 DEP = $(OBJ:.o=.d)
 BIN = bin/game
 
-.PHONY: all clean gac lines
+.PHONY: all clean
 
 all: $(BIN)
 
@@ -17,9 +17,3 @@ $(BIN): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(DEP) $(BIN)
-
-gac:
-	./genAllCode.sh
-
-lines:
-	./lines

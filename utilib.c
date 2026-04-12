@@ -64,15 +64,19 @@ void cleanString(char * arr, int length){
 void rmnlString(char * arr){
     *(arr + strcspn(arr,"\n"))='\0';
 }
-void crypt(sline * head){
-    sline * cur = head;
-    while(cur){
-        for(int i=0; i<513 && (*(cur->contents +i)!='\0');i++){
-            (*(cur->contents + i))=(*(cur->contents + i))^('L');
+void crypt(sline *head) {
+    const char key[] = "InSunlitGrace!";  // Change this
+    int key_len = strlen(key);
+    int key_idx = 0;
+
+    sline *cur = head;
+    while (cur) {
+        for (int i = 0; i < 513 && cur->contents[i] != '\0'; i++) {
+            cur->contents[i] ^= key[key_idx % key_len];
+            key_idx++;
         }
-        cur=cur->next;
+        cur = cur->next;
     }
-    return;
 }
 
 void freeSprite(char ** sprite){
