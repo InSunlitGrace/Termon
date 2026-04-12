@@ -155,10 +155,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                         break;
                     }
                     battler = teamMon->mon;
-                    for(int i=0;i<4;i++){
-                        free(*(battlerSprite+i));
-                    }
-                    free(battlerSprite);
+                    freeSprite(battlerSprite);
                     battlerSprite=ascii(battler->id);
                 }
                 continue;
@@ -184,10 +181,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                         break;
                     }
                     battler = teamMon->mon;
-                    for(int i=0;i<4;i++){
-                        free(*(battlerSprite+i));
-                    }
-                    free(battlerSprite);
+                    freeSprite(battlerSprite);
                     battlerSprite=ascii(battler->id);
                 }
             }
@@ -201,10 +195,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                         break;
                     }
                     battler = teamMon->mon;
-                    for(int i=0;i<4;i++){
-                        free(*(battlerSprite+i));
-                    }
-                    free(battlerSprite);
+                    freeSprite(battlerSprite);
                     battlerSprite=ascii(battler->id);
                 }
                 theSpawn->health -= damCalc(battler,theSpawn);
@@ -228,10 +219,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             if(previous){
                 teamMon=previous;
                 battler=teamMon->mon;
-                for(int i=0;i<4;i++){
-                    free(battlerSprite[i]);
-                }
-                free(battlerSprite);
+                freeSprite(battlerSprite);
                 battlerSprite=ascii(battler->id);
                 battler->health -= damCalc(theSpawn,battler);
                 if(isFainted(battler)){
@@ -242,10 +230,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                         break;
                     }
                     battler = teamMon->mon;
-                    for(int i=0;i<4;i++){
-                        free(*(battlerSprite+i));
-                    }
-                    free(battlerSprite);
+                    freeSprite(battlerSprite);
                     battlerSprite=ascii(battler->id);
                 }
             }
@@ -263,10 +248,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             if(nexto){
                 teamMon=nexto;
                 battler=teamMon->mon;
-                for(int i=0;i<4;i++){
-                    free(battlerSprite[i]);
-                }
-                free(battlerSprite);
+                freeSprite(battlerSprite);
                 battlerSprite=ascii(battler->id);
                 battler->health -= damCalc(theSpawn,battler);
                 if(isFainted(battler)){
@@ -277,20 +259,15 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                         break;
                     }
                     battler = teamMon->mon;
-                    for(int i=0;i<4;i++){
-                        free(*(battlerSprite+i));
-                    }
-                    free(battlerSprite);
+                    freeSprite(battlerSprite);
                     battlerSprite=ascii(battler->id);
+                
                 }
             }
         }
     }
-    for(int i=0;i<4;i++){
-        free(*(spawnSprite+i));
-        free(*(battlerSprite+i));
-    }
-    free(spawnSprite); free(battlerSprite);
+    freeSprite(spawnSprite);
+    freeSprite(battlerSprite);
     werase(battleWin);
     wrefresh(battleWin);
     delwin(battleWin);
@@ -320,6 +297,7 @@ void giveXP(termon * winner, termon * loser){
     winner->xp += ((BASE)*L2)/L1;
     while((winner->xp)>(genStartXP((winner->lvl)+1))){
         winner->lvl+=1;
+        winner->health+=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI)-winner->hp;
         winner->hp=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI);
         winner->atk=genStat((nFromDex(masterTerdex,winner->id))->b_atk,winner->lvl,winner->atkI);
         winner->def=genStat((nFromDex(masterTerdex,winner->id))->b_def,winner->lvl,winner->defI);

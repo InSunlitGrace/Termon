@@ -207,12 +207,13 @@ int selectStarter() {
 
     const char *options[3] = {"Byteon", "Hexra", "Nibrix"};
     int choice = 0;
-    char ** starterSprite = ascii(choice+1);
+    char ** starterSprite = NULL;
+    dex * template = NULL;
+
     int ch;
     int headOffset = 2+(cols-strlen("CHOOSE YOUR STARTING TERMON"))/2;
     while(1) {
-        for(int i=0;i<4;i++) free(*(starterSprite +i));
-        free(starterSprite);
+        template=nFromDex(masterTerdex,choice+1);
         starterSprite = ascii(choice+1);
         werase(win);
         if(isColour){
@@ -224,20 +225,44 @@ int selectStarter() {
             wattroff(win, COLOR_PAIR(HEADCOLOUR));
             wattron(win, COLOR_PAIR(OPTIONCOLOUR));
             for(int i=0;i<3;i++) {
-                mvwprintw(win, 4+i*2, 1, "%s %s", (choice==i)?"-->":"  ", options[i]);
+                mvwprintw(win, 4+i*2, 3, "%s %s", (choice==i)?"-->":" ", options[i]);
             }
             wattroff(win, COLOR_PAIR(OPTIONCOLOUR));
             wattron(win, COLOR_PAIR(FOOTCOLOUR));
             mvwprintw(win, rows-2, 2, "Use UP/DOWN arrows, Enter to select, Q to quit");
             wattroff(win, COLOR_PAIR(FOOTCOLOUR));
+            wattron(win,COLOR_PAIR(LOGOCOLOUR));
+            for(int i=0;i<4;i++){
+                for(int j=0;j<8;j++){
+                    mvwaddch(win,4+i,28+j,*(*(starterSprite+i)+j));
+                }
+            }
+            wattroff(win,COLOR_PAIR(LOGOCOLOUR));
+            wattron(win,COLOR_PAIR(CONTENTCOLOUR));
+            mvwprintw(win,9,26,"Base HP: %4d",template->b_hp);
+            mvwprintw(win,10,26,"Base Atk:%4d",template->b_atk);
+            mvwprintw(win,11,26,"Base Def:%4d",template->b_def);
+            mvwprintw(win,12,26,"Base Spd:%4d",template->b_speed);
+            mvwprintw(win,13,26,"BST:%9d",template->b_hp+template->b_atk+template->b_def+template->b_speed );
+            wattroff(win,COLOR_PAIR(CONTENTCOLOUR));
 
         }
         else{
             box(win, 0, 0);
             mvwprintw(win, 1, headOffset, "CHOOSE YOUR STARTING TERMON");
             for(int i=0;i<3;i++) {
-                mvwprintw(win, 4+i*2, 1, "%s %s", (choice==i)?"-->":"  ", options[i]);
+                mvwprintw(win, 4+i*2, 3, "%s %s", (choice==i)?"-->":" ", options[i]);
             }
+            for(int i=0;i<4;i++){
+                for(int j=0;j<8;j++){
+                    mvwaddch(win,4+i,28+j,*(*(starterSprite+i)+j));
+                }
+            }
+            mvwprintw(win,9,26,"Base HP: %4d",template->b_hp);
+            mvwprintw(win,10,26,"Base Atk:%4d",template->b_atk);
+            mvwprintw(win,11,26,"Base Def:%4d",template->b_def);
+            mvwprintw(win,12,26,"Base Spd:%4d",template->b_speed);
+            mvwprintw(win,13,26,"BST:%9d",template->b_hp+template->b_atk+template->b_def+template->b_speed );
             mvwprintw(win, rows-2, 2, "Use UP/DOWN arrows, Enter to select, Q to quit");
         }
         wrefresh(win);
@@ -252,16 +277,19 @@ int selectStarter() {
             if(choice>2) choice=0; 
         }
         else if(ch==10 || ch==KEY_ENTER) {
+            freeSprite(starterSprite);
             werase(win);
             wrefresh(win);
             delwin(win);
             return choice+1; 
         }
         else if(ch=='q' || ch=='Q') {
+            freeSprite(starterSprite);
             werase(win);
             wrefresh(win);
             delwin(win);
             return -1;
         }
+        freeSprite(starterSprite);
     }
 }

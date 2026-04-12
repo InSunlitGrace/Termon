@@ -13,3 +13,4 @@ void texit();
 char ** ascii(int id);
 void cleanString(char * arr, int length);
 void crypt(sline * head);
+void freeSprite(char ** sprite);

@@ -13,8 +13,6 @@
 
 #include "h/constants.h"
 
-#define DEBUG 0
-
 int main(int argc, char * argv[]){   
     srand(time(NULL));
     printf("\033[8;%d;%dt",MAX_MAP_ROWS,MAX_MAP_COLS+MAX_SIDE_COLS);  // resize to 40 rows, 120 cols

@@ -5,6 +5,8 @@
 #include "termon.h"
 #include <signal.h>
 
+#define DEBUG 0
+
 #define MAX_MAP_ROWS 35
 #define MAX_MAP_COLS 75
 #define MAX_SIDE_COLS 40
@@ -25,6 +27,8 @@
 #define PUDDLECOLOUR 5
 #define PLAYERCOLOUR 5
 
+#define SPAWN_STEPS 10
+#define DROP_STEPS 25
 #define BASEXP 100
 #define POWER 50
 

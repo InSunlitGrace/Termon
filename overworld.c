@@ -142,14 +142,14 @@ void handleSpawn(WINDOW * win, dex * theTerdex){
         teamMate=teamMate->next;
     }
     if(hasPlayableMons){
-        if(rand()%10==0){
+        if(rand()%SPAWN_STEPS==0){
             startBattle(win,theTerdex);
         }
     }
     return;
 }
 void handleDrop(){
-    if((rand()%40)==0){
+    if((rand()%DROP_STEPS)==0){
         int items=0;
         bag * item = thePlayer->pBag;
         while(item){

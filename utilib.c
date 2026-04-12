@@ -26,9 +26,10 @@ void gexitd(int code){
         printPlayerData();
         printVmap(Vmap);
     }
-    freeVmap(Vmap);
-    freePlayer();
-    freeDex(masterTerdex);
+    if(Vmap) freeVmap(Vmap);
+    if(thePlayer) freePlayer();
+    if(masterTerdex) freeDex(masterTerdex);
+    exit(0);
     return;
 }
 void texit(){
@@ -72,4 +73,11 @@ void crypt(sline * head){
         cur=cur->next;
     }
     return;
+}
+
+void freeSprite(char ** sprite){
+    for(int i=0;i<4;i++){
+        free(*(sprite+i));
+    }
+    free(sprite);
 }

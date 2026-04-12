@@ -31,6 +31,7 @@ player * handleNewGame(int mode, dex * terdex, bag * catalogue){
     
     if(mode == 0){
         int starter=selectStarter(isColour);
+        if(starter==-1) gexitd(DEBUG);
         Player = newPlayer(starter, terdex);
         return Player;
     }
