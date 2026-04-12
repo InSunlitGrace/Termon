@@ -110,10 +110,10 @@ void handleMove(WINDOW * win, int dir, dex * theTerdex, WINDOW ** oOverWorld){
         else if (target=='[')
         {
             thePlayer->map -=1;
-            freeVmap(Vmap);
-            Vmap = constructVmap();
             thePlayer->x=Vmap->px;
             thePlayer->y=Vmap->py;
+            freeVmap(Vmap);
+            Vmap = constructVmap();
             werase(pwin);
             wrefresh(pwin);
             delwin(pwin);
