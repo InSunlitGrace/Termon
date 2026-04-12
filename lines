@@ -1,0 +1,29 @@
+#!/bin/bash
+
+count=0
+
+# Count in Makefile
+if [ -e "Makefile" ]; then
+    lines=$(grep -c '.' Makefile)
+    echo "Makefile: $lines"
+    count=$((count + lines))
+fi
+
+# Count .c files
+for file in *.c; do
+    [ -e "$file" ] || continue
+    lines=$(grep -c '.' "$file")
+    echo "${file}: $lines"
+    count=$((count + lines))
+done
+
+# Count .h files
+for file in ./h/*.h; do
+    [ -e "$file" ] || continue
+    lines=$(grep -c '.' "$file")
+    echo "${file}: $lines"
+    count=$((count + lines))
+done
+
+echo "---"
+echo "Total: $count"
