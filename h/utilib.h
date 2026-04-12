@@ -1,5 +1,7 @@
 #pragma once
 #include <time.h>
+#include <ncurses.h>
+
 #include "player.h"
 #include "vcanvas.h"
 #include "termon.h"

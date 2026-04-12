@@ -1,8 +1,25 @@
-.PHONY: gac lines
+SRC = main.c ui.c termon.c overworld.c saves.c player.c vcanvas.c battle.c utilib.c constants.c
+OBJ = $(SRC:.c=.o)
+DEP = $(OBJ:.o=.d)
+BIN = bin/game
 
-game: main.c ui.c ./h/ui.h ./h/termon.h termon.c ./h/overworld.h overworld.c ./h/saves.h saves.c ./h/player.h player.c ./h/vcanvas.h vcanvas.c ./h/battle.h battle.c ./h/utilib.h utilib.c ./h/constants.h constants.c
-	gcc main.c ui.c termon.c overworld.c saves.c player.c vcanvas.c battle.c utilib.c constants.c -lncurses -o ./bin/game
+.PHONY: all clean gac lines
+
+all: $(BIN)
+
+-include $(DEP)
+
+$(BIN): $(OBJ)
+	gcc $(OBJ) -lncurses -o $(BIN)
+
+%.o: %.c
+	gcc -Ih -MMD -MP -c $< -o $@
+
+clean:
+	rm -f $(OBJ) $(DEP) $(BIN)
+
 gac:
 	./genAllCode.sh
+
 lines:
 	./lines

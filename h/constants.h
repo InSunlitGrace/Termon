@@ -3,6 +3,11 @@
 #include "player.h"
 #include "vcanvas.h"
 #include "termon.h"
+#include <signal.h>
+
+#define MAX_MAP_ROWS 35
+#define MAX_MAP_COLS 75
+#define MAX_SIDE_COLS 40
 
 #define BOXCOLOUR 1
 #define HEADCOLOUR 2

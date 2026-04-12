@@ -15,15 +15,18 @@
 
 #define DEBUG 0
 
-int main(int argc, char * argv[])
-{   
+int main(int argc, char * argv[]){   
     srand(time(NULL));
+    printf("\033[8;%d;%dt",MAX_MAP_ROWS,MAX_MAP_COLS+MAX_SIDE_COLS);  // resize to 40 rows, 120 cols
+    fflush(stdout);
     initscr();
     cbreak();
     noecho();
     curs_set(0);
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
+
+
     dex * theTerdex = NULL;
     bag * theCatalogue = NULL;
     thePlayer = NULL;
@@ -72,8 +75,7 @@ int main(int argc, char * argv[])
         gexitd(DEBUG);
     }
     wrefresh(overWorld);
-    while(1)
-    {
+    while(1){
         ch = wgetch(overWorld);
         if(ch==KEY_UP) handleMove(overWorld,1, theTerdex, &overWorld);
         else if(ch==KEY_DOWN) handleMove(overWorld,3, theTerdex, &overWorld);
