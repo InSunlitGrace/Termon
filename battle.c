@@ -320,6 +320,10 @@ void giveXP(termon * winner, termon * loser){
     winner->xp += ((BASE)*L2)/L1;
     while((winner->xp)>(genStartXP((winner->lvl)+1))){
         winner->lvl+=1;
+        winner->hp=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI);
+        winner->atk=genStat((nFromDex(masterTerdex,winner->id))->b_atk,winner->lvl,winner->atkI);
+        winner->def=genStat((nFromDex(masterTerdex,winner->id))->b_def,winner->lvl,winner->defI);
+        winner->spd=genStat((nFromDex(masterTerdex,winner->id))->b_speed,winner->lvl,winner->spdI);
     }
     return;
 }
