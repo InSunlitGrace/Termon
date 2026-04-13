@@ -26,7 +26,7 @@ int main(int argc, char * argv[]){
 
 
     dex * theTerdex = NULL;
-    bag * theCatalogue = NULL;
+    theCatalogue = NULL;
     thePlayer = NULL;
     Vmap = NULL;
 
@@ -57,10 +57,10 @@ int main(int argc, char * argv[]){
     theCatalogue = loadItems();
     napms(2000);
     flushinp();
-    dispComand();
+    dispComand(1,1);
 
     int gameMode = showMenu(saveCount());
-    thePlayer = handleNewGame(gameMode, theTerdex, theCatalogue);
+    thePlayer = handleNewGame(gameMode, theTerdex);
     
     int ch;
     Vmap = constructVmap();
@@ -81,10 +81,12 @@ int main(int argc, char * argv[]){
         else if(ch==KEY_RIGHT) handleMove(overWorld,2, theTerdex, &overWorld);
         else if(ch=='T' || ch=='t') showTeam();
         else if(ch=='B' || ch=='b') showBag();
+        else if(ch=='H' || ch=='h'){ dispComand(4,8); touchwin(overWorld);}
         else if(ch=='S' || ch=='s') saveFile();
         else if(ch=='Q' || ch=='q') break;
         wrefresh(overWorld);
     }
+    delwin(overWorld);
     gexitd(DEBUG);
 
     return 0;

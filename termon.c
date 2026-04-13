@@ -75,11 +75,7 @@ int genI(){
 
 }
 int genStat(int base, int lvl, int IV){
-    int stat = (2*base)+0.5*IV;
-    stat*=lvl;
-    stat/=80;
-    stat+=lvl+10;
-    return stat;
+    return (int)((((((1.6)*base)+0.5*IV)*lvl)/80)+lvl+10);
 }
 long unsigned int genStartXP(int lvl){
     return ((((long unsigned int)lvl)*(lvl+1)/2)*BASEXP);

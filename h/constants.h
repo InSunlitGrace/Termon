@@ -39,3 +39,4 @@ extern int isColour;
 extern player * thePlayer;
 extern vmap * Vmap;
 extern dex * masterTerdex;
+extern bag * theCatalogue;

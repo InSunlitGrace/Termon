@@ -29,6 +29,16 @@ void gexitd(int code){
     if(Vmap) freeVmap(Vmap);
     if(thePlayer) freePlayer();
     if(masterTerdex) freeDex(masterTerdex);
+    if(theCatalogue){
+        bag * cur, * prev;
+        cur=theCatalogue->next;
+        prev=theCatalogue;
+        while(prev){
+            free(prev);
+            prev=cur;
+            if(cur) cur=cur->next;
+        }
+    }
     exit(0);
     return;
 }

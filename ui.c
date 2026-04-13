@@ -81,8 +81,8 @@ void dispLoad(){
     wrefresh(win); 
     delwin(win);
 }
-void dispComand(){
-    WINDOW *win = newwin(WIN_ROWS, WIN_COLS, 1, 1);
+void dispComand(int x, int y){
+    WINDOW *win = newwin(WIN_ROWS, WIN_COLS, x, y);
     keypad(win, TRUE);
     FILE *file = fopen(COMMANDS, "r");
     if (!file)
@@ -108,8 +108,10 @@ void dispComand(){
         if(row == 1 && isColour) wattron(win,COLOR_PAIR(HEADCOLOUR));
         if(row == 2 && isColour) wattroff(win,COLOR_PAIR(HEADCOLOUR));
         if(row == 3 && isColour) wattron(win,COLOR_PAIR(CONTENTCOLOUR));
-        if(row == 13 && isColour) wattroff(win,COLOR_PAIR(CONTENTCOLOUR));
-        if(row == 14 && isColour) wattron(win,COLOR_PAIR(FOOTCOLOUR));
+        if(row == 13 && isColour){
+            wattroff(win,COLOR_PAIR(CONTENTCOLOUR));
+            wattron(win,COLOR_PAIR(FOOTCOLOUR));
+        }
         if(row >= WIN_ROWS-1) break; 
         mvwprintw(win, row, 1, "%.*s", WIN_COLS-2, line); 
         row++;
@@ -118,6 +120,8 @@ void dispComand(){
     if(isColour) wattroff(win,COLOR_PAIR(FOOTCOLOUR));
     wrefresh(win); 
     wgetch(win);
+    werase(win);
+    wrefresh(win);
     delwin(win);
 }
 int showMenu(int numSaves) {

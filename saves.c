@@ -26,7 +26,7 @@ int saveCount(){
         return atoi(num);
     }
 }
-player * handleNewGame(int mode, dex * terdex, bag * catalogue){
+player * handleNewGame(int mode, dex * terdex){
     player * Player = NULL;
     
     if(mode == 0){
@@ -72,7 +72,7 @@ player * handleNewGame(int mode, dex * terdex, bag * catalogue){
         bag * curItem=Player->pBag;
         team * curTeam=Player->pTeam;
         termon * curMon=NULL;
-        bag * trav=catalogue;
+        bag * trav=theCatalogue;
         dex * temp=NULL;
         int index=0;
         int quant=0;
@@ -143,8 +143,7 @@ player * handleNewGame(int mode, dex * terdex, bag * catalogue){
                 while(trav && (trav->index!=index)) trav=trav->next;
                 strcpy(curItem->itemName,trav->itemName);
                 strcpy(curItem->description,trav->description);
-                trav=catalogue;
-                //printf("%d %s %d %s , %p , %p ,\n",curItem->index,curItem->itemName,curItem->itemQuant,curItem->description,curItem->prev,curItem->next);
+                trav=theCatalogue;
             }
             else{
                 Player->savefile=atoi(strtok(cur->contents,","));
@@ -157,6 +156,7 @@ player * handleNewGame(int mode, dex * terdex, bag * catalogue){
         /*printf("%s %d %d %d %d\n", saveFileName,Player->savefile,Player->map,Player->x,Player->y);
         printBagData(Player->pBag);
         printTeamData(Player->pTeam);*/
+        free(head);
     }
     return Player;
 }

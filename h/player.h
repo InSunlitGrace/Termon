@@ -37,7 +37,7 @@ void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon);
 void healTeamMon(team * teamMate, WINDOW * parent);
 void showTeam();
 void showBag();
-void addItem(bag * catalogue, int id, int quant);
+void addItem(int id, int quant);
 
 void reindexTeam();
 

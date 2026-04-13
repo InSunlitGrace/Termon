@@ -2,6 +2,6 @@
 #include <ncurses.h>
 
 void dispLoad();
-void dispComand();
+void dispComand(int x, int y);
 int showMenu(int numSaves);
 int selectStarter();

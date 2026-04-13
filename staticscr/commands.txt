@@ -1,15 +1,15 @@
                     COMMANDS
 
- Arrow Keys  - Move character in map
- T           - Open/Close Team Window
-    UP/DOWN  - Choose Termons
-    U        - Move Termon one place up
-    D        - Move Termon one place done
-    R        - Release Termon
-    H        - Heal Termon
- B           - Open/Close Team Window
-
- Q           - Quit game
+ Arrow Keys     - Move Player in the Map
+ T          - Open/Close Team Menu
+    LEFT/RIGHT  - See Different Termons
+    O           - See Other Options
+ B          - Open/Close Bag Menu
+    LEFT/RIGHT  - See Different Items
+ H       - See This Menu
+ Q       - Quit Game (Not Saved)
+ S       - Save Game
  
- Press any key to continue...                   
+ Close one Menu before opening another!               
  Cannot quit Commands Screen & Sub-Windows
+ Press any key to continue...   

@@ -46,7 +46,8 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             mvwprintw(battleWin,1,1+(40-(strlen("A Termon Appeared!")))/2,"%.*s",(int)strlen("A Termon Appeared!"),"A Termon Appeared!");
             wattroff(battleWin,COLOR_PAIR(HEADCOLOUR));
             wattron(battleWin,COLOR_PAIR(FOOTCOLOUR));
-            mvwprintw(battleWin,14,2,"A-Attack C-Catch R-Run P/N-Swap Mon");
+            mvwprintw(battleWin,13,2,"A-Attack C-Catch R-Run");
+            mvwprintw(battleWin,14,2,"LEFT/RIGHT ARROW-Swap Mon");       
             wattroff(battleWin,COLOR_PAIR(FOOTCOLOUR));
             wattron(battleWin,COLOR_PAIR(CONTENTCOLOUR));
             mvwprintw(battleWin,3,2,"%s",theSpawn->name);
@@ -71,7 +72,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             wattroff(battleWin,COLOR_PAIR(LOGOCOLOUR));
             if(spawnState!=0){
                 wattron(battleWin,COLOR_PAIR((spawnState==1)?WARNING:SAFE));
-                mvwprintw(battleWin,13,2,"Foe %s %s", theSpawn->name,(spawnState==1)?"fainted!":"caught!");
+                mvwprintw(battleWin,12,2,"Foe %s %s", theSpawn->name,(spawnState==1)?"fainted!":"caught!");
                 wattroff(battleWin,COLOR_PAIR((spawnState==1)?WARNING:SAFE));
                 wrefresh(battleWin);
                 napms(2000);
@@ -83,7 +84,8 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
         else{
             box(battleWin,0,0);
             mvwprintw(battleWin,1,1+(40-(strlen("A Termon Appeared!")))/2,"%.*s",(int)strlen("A Termon Appeared!"),"A Termon Appeared!");
-            mvwprintw(battleWin,14,2,"A-Attack C-Catch R-Run P/N-Swap Mon");
+            mvwprintw(battleWin,13,2,"A-Attack C-Catch R-Run");
+            mvwprintw(battleWin,14,2,"LEFT/RIGHT ARROW-Swap Mon");            
             mvwprintw(battleWin,3,2,"%s",theSpawn->name);
             mvwprintw(battleWin,4,2,"Lvl: %d",theSpawn->lvl);
             mvwprintw(battleWin,5,2,"HP: %d/%d",theSpawn->health,theSpawn->hp);
@@ -102,7 +104,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                 }
             }
             if(spawnState!=0){
-                mvwprintw(battleWin,13,2,"Foe %s %s", theSpawn->name,(spawnState==1)?"fainted!":"caught!");
+                mvwprintw(battleWin,12,2,"Foe %s %s", theSpawn->name,(spawnState==1)?"fainted!":"caught!");
                 wrefresh(battleWin);
                 napms(2000);
                 if(spawnState==1){
@@ -137,11 +139,11 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             else if(caught==0){
                 if(isColour){
                     wattron(battleWin,COLOR_PAIR(WARNING));
-                    mvwprintw(battleWin,13,2,"%s Escaped!", theSpawn->name);
+                    mvwprintw(battleWin,12,2,"%s Escaped!", theSpawn->name);
                     wattroff(battleWin,COLOR_PAIR(WARNING));
                 }
                 else{
-                   mvwprintw(battleWin,13,2,"%s Escaped!", theSpawn->name);
+                   mvwprintw(battleWin,12,2,"%s Escaped!", theSpawn->name);
                 }
                 wrefresh(battleWin);
                 napms(1000);
@@ -361,32 +363,34 @@ team * handleTeamFaint(WINDOW * parent, termon * theMon, int * confirm ){
             mvwprintw(faintWin,1,1,"%s fainted! Continue?", theMon->name);
             wattroff(faintWin,COLOR_PAIR(HEADCOLOUR));
             wattron(faintWin,COLOR_PAIR(FOOTCOLOUR));
-            mvwprintw(faintWin,7,1,"Use Arrows to Navigate!");
-            mvwprintw(faintWin,8,1,"Enter- Confirm Choice.");
+            mvwprintw(faintWin,6,1,"UP/DOWN - Switch Option");
+            mvwprintw(faintWin,7,1,"LEFT/RIGHT - Switch Mon");
+            mvwprintw(faintWin,8,1,"Enter - Confirm Choice.");
             wattroff(faintWin,COLOR_PAIR(FOOTCOLOUR));
             wattron(faintWin,COLOR_PAIR(OPTIONCOLOUR));
             if(option==0){
                 mvwprintw(faintWin,3,1,"--> %s %d/%d",(teamMate->mon->name),(teamMate->mon->health),(teamMate->mon->hp));
-                mvwprintw(faintWin,5,1,"    End Battle");
+                mvwprintw(faintWin,4,1,"    End Battle");
             }
             else if(option==1){
                 mvwprintw(faintWin,3,1,"    %s %d/%d",(teamMate->mon->name),(teamMate->mon->health),(teamMate->mon->hp));
-                mvwprintw(faintWin,5,1,"--> End Battle");
+                mvwprintw(faintWin,4,1,"--> End Battle");
             }
             wattroff(faintWin,COLOR_PAIR(OPTIONCOLOUR));
         }
         else{
             box(faintWin,0,0);
             mvwprintw(faintWin,1,1,"%s fainted! Continue?", theMon->name);
-            mvwprintw(faintWin,7,1,"Use Arrows to Navigate!");
-            mvwprintw(faintWin,8,1,"Enter- Confirm Choice.");
+            mvwprintw(faintWin,6,1,"UP/DOWN - Switch Option");
+            mvwprintw(faintWin,7,1,"LEFT/RIGHT - Switch Mon");
+            mvwprintw(faintWin,8,1,"Enter - Confirm Choice.");
             if(option==0){
                 mvwprintw(faintWin,3,1,"--> %s %d/%d",(teamMate->mon->name),(teamMate->mon->health),(teamMate->mon->hp));
-                mvwprintw(faintWin,5,1,"    End Battle");
+                mvwprintw(faintWin,4,1,"    End Battle");
             }
             else if(option==1){
                 mvwprintw(faintWin,3,1,"    %s %d/%d",(teamMate->mon->name),(teamMate->mon->health),(teamMate->mon->hp));
-                mvwprintw(faintWin,5,1,"--> End Battle");
+                mvwprintw(faintWin,4,1,"--> End Battle");
             }            
         }
         wrefresh(faintWin);

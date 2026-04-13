@@ -8,6 +8,6 @@ typedef struct save{
 } sline;
 
 int saveCount();
-player * handleNewGame(int mode, dex * terdex,bag * catalogue);
+player * handleNewGame(int mode, dex * terdex);
 void saveFile();
 void rmnlString(char * arr);

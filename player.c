@@ -221,7 +221,7 @@ void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
                 wattroff(query, COLOR_PAIR(WARNING));
                 wattron(query, COLOR_PAIR(CONTENTCOLOUR));
                 mvwprintw(query,4,2,"As it is the");
-                mvwprintw(query,5,2,"Sole teammate");
+                mvwprintw(query,5,2,"Sole TeamMon");
                 wattroff(query, COLOR_PAIR(CONTENTCOLOUR));
                 wattron(query,COLOR_PAIR(FOOTCOLOUR));
                 mvwprintw(query,7,2,"Press any key");
@@ -232,7 +232,7 @@ void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
                 mvwprintw(query,1,cannotOffset,"Cannot Remove:");
                 mvwprintw(query,2,nameOffset,"%s",freemon->name);
                 mvwprintw(query,4,2,"As it is the");
-                mvwprintw(query,5,2,"Sole teammate");
+                mvwprintw(query,5,2,"Sole TeamMon");
                 mvwprintw(query,7,2,"Press any key");
             }
             wrefresh(query);
@@ -364,7 +364,6 @@ void showTeam(){
     termon * curMon;
     WINDOW * teamWin = newwin(16,22,1,(Vmap->cols)+1);
     keypad(teamWin,TRUE);
-    curs_set(0);
     int ch;
     while(1){
         curMon = teamMate->mon;
@@ -405,16 +404,52 @@ void showTeam(){
         }
         wrefresh(teamWin);
         ch = wgetch(teamWin);
-        if(ch==KEY_DOWN){
+        if(ch==KEY_RIGHT){
             if(teamMate->next) teamMate=teamMate->next;
         }
-        if(ch==KEY_UP){
+        if(ch==KEY_LEFT){
             if(teamMate->prev) teamMate=teamMate->prev;
         }
         if(ch=='U' || ch=='u') moveMonTeam(teamMate,1);
         if(ch=='D' || ch=='d') moveMonTeam(teamMate,0);
         if(ch=='R' || ch=='r') rmTeamMon(teamMate,teamWin,&teamMate);
         if(ch=='H' || ch=='h') healTeamMon(teamMate,teamWin);
+        if(ch=='O' || ch=='o'){
+            WINDOW * optionsWin = newwin(10,18,5,(Vmap->cols)+3);
+            keypad(optionsWin,TRUE);
+            int ch;
+            if(isColour){
+                wattron(optionsWin,COLOR_PAIR(BOXCOLOUR));
+                box(optionsWin,0,0);
+                wattroff(optionsWin,COLOR_PAIR(BOXCOLOUR));
+                wattron(optionsWin,COLOR_PAIR(HEADCOLOUR));
+                mvwprintw(optionsWin,1,5,"Options!");
+                wattroff(optionsWin,COLOR_PAIR(HEADCOLOUR));
+                wattron(optionsWin,COLOR_PAIR(CONTENTCOLOUR));
+                mvwprintw(optionsWin,3,2,"U: Move Up");
+                mvwprintw(optionsWin,4,2,"D: Move Down");
+                mvwprintw(optionsWin,5,2,"H: Heal");
+                mvwprintw(optionsWin,6,2,"R: Release");
+                wattroff(optionsWin,COLOR_PAIR(CONTENTCOLOUR));
+                wattron(optionsWin,COLOR_PAIR(FOOTCOLOUR));
+                mvwprintw(optionsWin,8,2,"Press a Key...");
+                wattroff(optionsWin,COLOR_PAIR(FOOTCOLOUR));
+            }
+            else{
+                box(optionsWin,0,0);
+                mvwprintw(optionsWin,1,5,"Options!");
+                mvwprintw(optionsWin,3,2,"U: Move Up");
+                mvwprintw(optionsWin,4,2,"D: Move Down");
+                mvwprintw(optionsWin,5,2,"H: Heal");
+                mvwprintw(optionsWin,6,2,"R: Release");
+                mvwprintw(optionsWin,8,2,"Press a Key...");
+            }
+            ch =wgetch(optionsWin);
+            touchwin(teamWin);
+            werase(optionsWin);
+            wrefresh(optionsWin);
+            delwin(optionsWin);
+        }
         if(ch=='T' || ch=='t') break;
     }
     wclear(teamWin);
@@ -445,7 +480,6 @@ void showBag(){
             mvwprintw(bagWin,5,2,"%s",theBag->description);
             wattroff(bagWin,COLOR_PAIR(CONTENTCOLOUR));
             wattron(bagWin,COLOR_PAIR(FOOTCOLOUR));
-            mvwprintw(bagWin,7,2,"P/N: Change Item");
             mvwprintw(bagWin,8,2,"B: Close Bag");
             wattroff(bagWin,COLOR_PAIR(FOOTCOLOUR));
         }
@@ -455,7 +489,6 @@ void showBag(){
             mvwprintw(bagWin,3,2,"%s",theBag->itemName);
             mvwprintw(bagWin,4,2,"Quantity: %d",theBag->itemQuant);
             mvwprintw(bagWin,5,2,"%s",theBag->description);
-            mvwprintw(bagWin,7,2,"P/N: Change Item");
             mvwprintw(bagWin,8,2,"B: Close Bag");
         }
         wrefresh(bagWin);
@@ -464,10 +497,10 @@ void showBag(){
         if(ch=='B' || ch=='b'){
             break;
         }
-        else if(ch=='P' || ch=='p'){
+        else if(ch==KEY_LEFT || ch=='P' || ch=='p'){
             if(theBag->prev) theBag=theBag->prev;
         }
-        else if(ch=='N' || ch=='n'){
+        else if(ch==KEY_RIGHT || ch=='N' || ch=='n'){
             if(theBag->next) theBag=theBag->next;
         } 
     }
@@ -476,7 +509,7 @@ void showBag(){
     delwin(bagWin);
     return;
 }
-void addItem(bag * catalogue, int id, int quant){
+void addItem(int id, int quant){
     bag * newItem=NULL;
     if(thePlayer->pBag==NULL){
         newItem = thePlayer->pBag=(bag *)malloc(sizeof(bag));  
@@ -495,11 +528,11 @@ void addItem(bag * catalogue, int id, int quant){
     newItem->index=id;
     newItem->itemQuant=quant;
 
-    bag * catItem = catalogue;
+    bag * catItem = theCatalogue;
     while(catItem!=NULL && catItem->index!=id){
         catItem=catItem->next;
     } 
-    if(catItem->index==id){
+    if((catItem!=NULL) && catItem->index==id){
         strncpy(newItem->itemName,catItem->itemName,10);
         strncpy(newItem->description,catItem->description,30);
     }

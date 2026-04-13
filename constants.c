@@ -5,3 +5,4 @@ int isColour = 0;
 player * thePlayer;
 vmap * Vmap;
 dex * masterTerdex;
+bag * theCatalogue;
