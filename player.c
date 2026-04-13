@@ -36,7 +36,6 @@ bag * loadItems(){
     FILE * fpt = fopen("data/items.csv", "r");
     if(!fpt){
         endwin();
-        printf("LOL\n");
         exit(1);
     }
     bag * head = NULL;
@@ -67,6 +66,7 @@ bag * loadItems(){
             *(cur->description+strcspn(cur->description,"\n"))='\0';   
         }    
     }
+    fclose(fpt);
     return head;
 }
 

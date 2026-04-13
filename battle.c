@@ -440,7 +440,7 @@ void giveXP(termon * winner, termon * loser){
     int L1 = winner->lvl;
     int L2 = loser->lvl;
     winner->xp += ((BASE)*L2)/L1;
-    while((winner->xp)>(genStartXP((winner->lvl)+1))){
+    while((winner->xp)>=(genStartXP((winner->lvl)+1))){
         winner->lvl+=1;
         winner->health+=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI)-winner->hp;
         winner->hp=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI);
@@ -468,7 +468,7 @@ int tryCatch( termon * theSpawn){
             prob=100*(1-(health/hp))/(1+(lvl/10));
         }
         thePlayer->pBag->next->itemQuant -= 1;
-        if(prob>(1+rand()%100)){
+        if(prob>=(1+rand()%100)){
             addMonTeam(theSpawn);
             return 1;
         }

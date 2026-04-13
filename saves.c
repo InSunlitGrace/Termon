@@ -144,8 +144,10 @@ player * handleNewGame(int mode, dex * terdex){
                 curItem->itemQuant=quant;
                 while(trav && (trav->index!=index)) trav=trav->next;
                 if(trav){
-                    strcpy(curItem->itemName,trav->itemName);
-                    strcpy(curItem->description,trav->description);
+                    strncpy(curItem->itemName,trav->itemName,9);
+                    strnpy(curItem->description,trav->description,29);
+                    *(trav->itemName + 9)='\0';
+                    *(trav->description + 29)='\0';
                 }
                 trav=theCatalogue;
             }
