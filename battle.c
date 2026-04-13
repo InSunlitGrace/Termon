@@ -11,7 +11,10 @@
 #include <string.h>
 #define BASE 1000
 
+//INITIALISES A NEW BATTLE
 void startBattle(WINDOW * parentWin, dex * theTerdex){
+    flushinp();
+
     int spawnCount = Vmap->spawnCount;
     if(spawnCount==0) return;
     team * teamMon =thePlayer->pTeam;
@@ -24,6 +27,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
         teamMon=teamMon->next  ;
     }
     if(!battler) return;
+
 
     WINDOW * battleWin = newwin(16,40,1,1+Vmap->cols);
     if(!battleWin) return;
@@ -208,7 +212,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                 }
             }
         }
-        else if(ch=='p' || ch=='P'){
+        else if(ch=='p' || ch=='P' || ch==KEY_LEFT){
             team * previous = teamMon->prev;
             while(previous){
                 if(previous->mon->health==0){
@@ -237,7 +241,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                 }
             }
         }
-        else if(ch=='n' || ch=='N'){
+        else if(ch=='n' || ch=='N' || ch==KEY_RIGHT){
             team * nexto = teamMon->next;
             while(nexto){
                 if(nexto->mon->health==0){
@@ -277,37 +281,10 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
     wrefresh(parentWin);
     return;
 }
-int damCalc(termon * attacker, termon * defender){
-    int atk = attacker->atk;
-    int def = defender->def;
-    int lvl = attacker->lvl;
-    int pwr=POWER;
-    if(def<=0) def=1;
-    int damage = (((((2*lvl)/5+2)*pwr*atk)/def)/50)+2;
-    return damage;
-}
-int isFainted(termon * mon){
-    if(mon->health<=0){
-        mon->health=0;
-        return 1;
-    }
-    return 0;
-}
-void giveXP(termon * winner, termon * loser){
-    int L1 = winner->lvl;
-    int L2 = loser->lvl;
-    winner->xp += ((BASE)*L2)/L1;
-    while((winner->xp)>(genStartXP((winner->lvl)+1))){
-        winner->lvl+=1;
-        winner->health+=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI)-winner->hp;
-        winner->hp=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI);
-        winner->atk=genStat((nFromDex(masterTerdex,winner->id))->b_atk,winner->lvl,winner->atkI);
-        winner->def=genStat((nFromDex(masterTerdex,winner->id))->b_def,winner->lvl,winner->defI);
-        winner->spd=genStat((nFromDex(masterTerdex,winner->id))->b_speed,winner->lvl,winner->spdI);
-    }
-    return;
-}
+
+//IF A TEAM MEMBER FAINTS
 team * handleTeamFaint(WINDOW * parent, termon * theMon, int * confirm ){
+    flushinp();
     WINDOW * faintWin;
     int allFaint=1;
     team * teamMate = thePlayer->pTeam;
@@ -436,6 +413,45 @@ team * handleTeamFaint(WINDOW * parent, termon * theMon, int * confirm ){
     }
     return NULL;
 }
+
+//UTILITIES
+    //CALCULATES DAMAGE DONE TO DEFENDER BY ATTACKER
+int damCalc(termon * attacker, termon * defender){
+    int atk = attacker->atk;
+    int def = defender->def;
+    int lvl = attacker->lvl;
+    int pwr=POWER;
+    if(def<=0) def=1;
+    int damage = (((((2*lvl)/5+2)*pwr*atk)/def)/50)+2;
+    return damage;
+}
+    
+    //CHECKS IF TERMON IS FAINTED
+int isFainted(termon * mon){
+    if(mon->health<=0){
+        mon->health=0;
+        return 1;
+    }
+    return 0;
+}
+
+    //GIVES XP IN CASE OF CATCH/FAINT OF WILD TERMON FOE
+void giveXP(termon * winner, termon * loser){
+    int L1 = winner->lvl;
+    int L2 = loser->lvl;
+    winner->xp += ((BASE)*L2)/L1;
+    while((winner->xp)>(genStartXP((winner->lvl)+1))){
+        winner->lvl+=1;
+        winner->health+=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI)-winner->hp;
+        winner->hp=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI);
+        winner->atk=genStat((nFromDex(masterTerdex,winner->id))->b_atk,winner->lvl,winner->atkI);
+        winner->def=genStat((nFromDex(masterTerdex,winner->id))->b_def,winner->lvl,winner->defI);
+        winner->spd=genStat((nFromDex(masterTerdex,winner->id))->b_speed,winner->lvl,winner->spdI);
+    }
+    return;
+}
+
+    //TRIES CATCHING A WILD TERMON SPAWN
 int tryCatch( termon * theSpawn){
     if((thePlayer->pBag->next->itemQuant)==0){
         return -1;
@@ -460,6 +476,4 @@ int tryCatch( termon * theSpawn){
             return 0;
         }
     }
-    return 0;
-
 }

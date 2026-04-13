@@ -1,11 +1,12 @@
-#include "h/vcanvas.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ncurses.h>
 
+#include "h/vcanvas.h"
 #include "h/constants.h"
 
+//CONSTRUCTS THE CURRENT OVERWORLD MAP
 vmap * constructVmap(){
     char fileName[100];
     char dataFileName[100];
@@ -59,6 +60,7 @@ vmap * constructVmap(){
     return Vmap;
 }
 
+//RETURNS THE TILE AT SPECIFIC X,Y ON A MAP
 char getVmapChar(vmap * Vmap, int x, int y){
     int rows = Vmap->rows;
     int cols = Vmap->cols;
@@ -66,6 +68,17 @@ char getVmapChar(vmap * Vmap, int x, int y){
     return *(*(Vmap->map+x)+y);
 }
 
+//UTILS
+void freeVmap(vmap * Vmap){
+    char ** map = Vmap->map;
+    int rows= Vmap->rows;
+    for(int i=0; i<rows; i++){
+        free(*(map+i));
+    }
+    free(Vmap);
+}
+
+//DEBUG
 void printVmap(vmap * Vmap){
     int rows = Vmap->rows;
     int cols = Vmap->cols;
@@ -81,13 +94,4 @@ void printVmap(vmap * Vmap){
         printf("%d ", *((Vmap->spawns) +i));
     }
     printf("\n");
-}
-
-void freeVmap(vmap * Vmap){
-    char ** map = Vmap->map;
-    int rows= Vmap->rows;
-    for(int i=0; i<rows; i++){
-        free(*(map+i));
-    }
-    free(Vmap);
 }

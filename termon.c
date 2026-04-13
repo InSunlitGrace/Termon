@@ -8,9 +8,9 @@
 #include "h/termon.h"
 #include "h/ui.h"
 #include "h/player.h"
-
 #include "h/constants.h"
 
+//GENERATES DEX FROM DEX.CSV
 dex * genDex(char arr[]){
 
     FILE * dexfile = fopen(arr, "r");
@@ -44,6 +44,8 @@ dex * genDex(char arr[]){
     return firstMon;
 
 }
+
+//RETURNS A POINTER TO THE NTH ENTRY FROM A DEX
 dex * nFromDex(dex * start, int id){
     dex * reqMon=NULL;
     dex * cur = start;
@@ -56,27 +58,19 @@ dex * nFromDex(dex * start, int id){
     }
     return reqMon;
 }
-void printDex(dex * start){
-    dex * cur=start;
-    if(cur==NULL){
-        printf("Null Dex\n");
-        return;
-    }
-    while(cur){
-        printf("%s %d\n", cur->name, cur->b_speed);
-        cur=cur->next;
-    }
-    return;
-}
 
-//Utilities
+//UTILITIES
+    //GENERATES RANDOM I VALUES FROM 0 TO 31
 int genI(){
-    return (1 + rand()%31);
+    return (rand()%32);
 
 }
+    //GENERATES STATS USING BASE, LEVEL AND I VALUES
 int genStat(int base, int lvl, int IV){
     return (int)((((((1.6)*base)+0.5*IV)*lvl)/80)+lvl+10);
 }
+
+    //GIVES XP TO NEWLY SPAWNED TERMON AT LEVEL
 long unsigned int genStartXP(int lvl){
     return ((((long unsigned int)lvl)*(lvl+1)/2)*BASEXP);
 }
@@ -111,7 +105,7 @@ termon * genNewTermon(dex * Terdex, int id, int lvl){
 
 }
 
-//FREE
+//FREE A DEX
 void freeDex(dex * theTerdex){
     dex * cur, * next;
     cur = theTerdex;
@@ -119,6 +113,20 @@ void freeDex(dex * theTerdex){
         next=cur->next;
         free(cur);
         cur=next;
+    }
+    return;
+}
+
+//DEBUG
+void printDex(dex * start){
+    dex * cur=start;
+    if(cur==NULL){
+        printf("Null Dex\n");
+        return;
+    }
+    while(cur){
+        printf("%s %d\n", cur->name, cur->b_speed);
+        cur=cur->next;
     }
     return;
 }

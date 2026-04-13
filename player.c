@@ -1,14 +1,14 @@
-#include "h/termon.h"
-#include "h/ui.h"
-#include "h/player.h"
-#include "h/utilib.h"
-
-#include "h/constants.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
 
+#include "h/termon.h"
+#include "h/ui.h"
+#include "h/player.h"
+#include "h/utilib.h"
+#include "h/constants.h"
+
+//iNITIALISES A NEW PLAYER OBJECT
 player * newPlayer(int starter, dex * terdex){
     player * newPlayer = NULL;
     if(starter!=0){
@@ -30,6 +30,8 @@ player * newPlayer(int starter, dex * terdex){
 
     return newPlayer;
 }
+
+//RETURNS AN EMPTY NEW BAG
 bag * loadItems(){
     FILE * fpt = fopen("data/items.csv", "r");
     if(!fpt){
@@ -38,7 +40,7 @@ bag * loadItems(){
         exit(1);
     }
     bag * head = NULL;
-    bag * cur=head;
+    bag * cur=NULL;
     char line[256];
     for(int i=0;i<256;i++) line[i]='\0';
     while(fgets(line,256,fpt)){
@@ -59,14 +61,16 @@ bag * loadItems(){
             cur=cur->next;
             cur->next=NULL;
             cur->index=atoi(strtok(line,","));
-            strncpy(cur->itemName,strtok(NULL,","),10);
+            strncpy(cur->itemName,strtok(NULL,","),9);
             cur->itemQuant=0;
-            strncpy(cur->description,strtok(NULL,","),30);
+            strncpy(cur->description,strtok(NULL,","),29);
             *(cur->description+strcspn(cur->description,"\n"))='\0';   
         }    
     }
     return head;
 }
+
+//ADD AN INITIALISED MON TO THE TEAM OF thePlayer
 void addMonTeam(termon * theMon){
     team * first = thePlayer->pTeam;
     team * nteam = (team *)malloc(sizeof(team));
@@ -88,6 +92,8 @@ void addMonTeam(termon * theMon){
     nteam->mon=theMon;
     return;
 }
+
+//CHANGES POSITION OF MON IN TEAM OF thePlayer
 void moveMonTeam(team * teamMate, int dir){
     if((dir==1 && (teamMate->prev)==NULL) || (dir==0 && (teamMate->next)==NULL) || (teamMate==NULL)){
         return;
@@ -114,7 +120,10 @@ void moveMonTeam(team * teamMate, int dir){
     reindexTeam();
     return;
 }
+
+//REMOVES THE CURRENT MON IN TEAM OF thePlayer
 void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
+    flushinp();
     int x,y;
     getbegyx(parent,x,y);
 
@@ -245,7 +254,10 @@ void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
     wrefresh(parent);
     return;
 }
+
+//HEALS THE CURRENT MON IN TEAM OF thePlayer
 void healTeamMon(team * teamMate, WINDOW * parent){
+    flushinp();
     int x,y;
     getbegyx(parent,x,y);
     if(thePlayer->pBag->itemQuant==0){
@@ -359,7 +371,10 @@ void healTeamMon(team * teamMate, WINDOW * parent){
     delwin(query);
     return;
 }
+
+//SHOWS THE TEAM WINDOW OF thePlayer
 void showTeam(){
+    flushinp();
     team * teamMate = thePlayer->pTeam;
     termon * curMon;
     WINDOW * teamWin = newwin(16,22,1,(Vmap->cols)+1);
@@ -457,7 +472,10 @@ void showTeam(){
     delwin(teamWin);
     return;
 }
+
+//SHOWS THE BAG WINDOW OF thePlayer
 void showBag(){
+    flushinp();
     bag * theBag = thePlayer->pBag;
     WINDOW * bagWin = newwin(10,24,1,(Vmap->cols)+1);
     keypad(bagWin,TRUE);
@@ -509,6 +527,8 @@ void showBag(){
     delwin(bagWin);
     return;
 }
+
+//ADDS AN ITEM TO THE BAG, NEW NODE IF NOT ALREADY THERE
 void addItem(int id, int quant){
     bag * newItem=NULL;
     if(thePlayer->pBag==NULL){
@@ -541,6 +561,7 @@ void addItem(int id, int quant){
 }
 
 //UTILS
+    //REINDEXES TEAM MEMBERS POSITION IN CASE OF CHANGE
 void reindexTeam(){
     if((thePlayer)){
         if((thePlayer->pTeam)){
@@ -554,6 +575,35 @@ void reindexTeam(){
         }
     }
 }
+    //FREE
+void freeBag(){
+    bag *cur = thePlayer->pBag;
+    bag *next;
+    while(cur){
+        next=cur->next;
+        free(cur);
+        cur=next;
+    }
+    return;
+}
+
+void freeTeam(){
+    team *cur = thePlayer->pTeam;
+    team *next;
+    while(cur){
+        next=cur->next;
+        free(cur->mon);
+        free(cur);
+        cur=next;
+    }
+    return;
+}
+
+void freePlayer(){
+    freeTeam();
+    freeBag();
+    free(thePlayer);
+}
 
 //DEBUG
 void printPlayerData(){
@@ -561,6 +611,7 @@ void printPlayerData(){
     printBagData(thePlayer->pBag);
     printTeamData(thePlayer->pTeam);
 }
+
 void printBagData(bag * theBag){
     if(!theBag){
         printf("Empty Bag\n");
@@ -574,6 +625,7 @@ void printBagData(bag * theBag){
     }
     return;
 }
+
 void printTeamData(team * theTeam){
     if(!theTeam){
         printf("Empty team\n");
@@ -594,6 +646,7 @@ void printTeamData(team * theTeam){
     return;
 
 }
+
 void printTeamData2(team * theTeam){
     if(!theTeam){
         printf("Empty team\n");
@@ -610,32 +663,4 @@ void printTeamData2(team * theTeam){
     }
     return;
 
-}
-
-//FREE
-void freeBag(){
-    bag *cur = thePlayer->pBag;
-    bag *next;
-    while(cur){
-        next=cur->next;
-        free(cur);
-        cur=next;
-    }
-    return;
-}
-void freeTeam(){
-    team *cur = thePlayer->pTeam;
-    team *next;
-    while(cur){
-        next=cur->next;
-        free(cur->mon);
-        free(cur);
-        cur=next;
-    }
-    return;
-}
-void freePlayer(){
-    freeTeam();
-    freeBag();
-    free(thePlayer);
 }

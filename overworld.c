@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <ncurses.h>
+#include <string.h>
+#include <time.h>
+
 #include "h/overworld.h"
 #include "h/vcanvas.h"
 #include "h/termon.h"
@@ -5,19 +10,11 @@
 #include "h/player.h"
 #include "h/battle.h"
 #include "h/utilib.h"
-
 #include "h/constants.h"
 
-#include <stdlib.h>
-#include <ncurses.h>
-#include <string.h>
-#include <time.h>
-
-int checkBound(int x, int y, int r, int c){
-    if(x>=0 && y>=0 && x<r && y<c) return 1;
-    return 0;
-}
+//INITIALISES A NEW MAP
 WINDOW * initOverWorld(){
+    flushinp();
     int rows = Vmap->rows, cols = Vmap->cols;
     int starty = 1, startx = 1;
 
@@ -52,22 +49,24 @@ WINDOW * initOverWorld(){
     return win;
 
 }
-void handleMove(WINDOW * win, int dir, dex * theTerdex, WINDOW ** oOverWorld){
+
+//HANDLES MAP MOVEMENT
+void handleMove(WINDOW * win, Direction dir, dex * theTerdex, WINDOW ** oOverWorld){
     int ox=thePlayer->x, oy=thePlayer->y;
     int nx=ox, ny=oy;
     WINDOW * pwin = win;
     switch (dir)
     {
-    case 1:
+    case DIR_UP:
         nx--;
         break;
-    case 2:
+    case DIR_RIGHT:
         ny++;
         break;
-    case 3:
+    case DIR_DOWN:
         nx++;
         break;
-    case 4:
+    case DIR_LEFT:
         ny--;
         break;
     
@@ -130,6 +129,8 @@ void handleMove(WINDOW * win, int dir, dex * theTerdex, WINDOW ** oOverWorld){
     }
     return;
 }
+
+//HANDLES NEW SPAWN TERMON ON A MAP
 void handleSpawn(WINDOW * win, dex * theTerdex){
     int hasPlayableMons=0;
     team * teamMate = thePlayer->pTeam;
@@ -148,6 +149,8 @@ void handleSpawn(WINDOW * win, dex * theTerdex){
     }
     return;
 }
+
+//HANDLES RANDOM ITEM DROPS ON A MAP
 void handleDrop(){
     if((rand()%DROP_STEPS)==0){
         int items=0;
@@ -168,4 +171,11 @@ void handleDrop(){
         item->itemQuant +=1;
     }
     return;
+}
+
+//UTILITIES
+    //CHECKS BOUND OF NEW STEP
+int checkBound(int x, int y, int r, int c){
+    if(x>=0 && y>=0 && x<r && y<c) return 1;
+    return 0;
 }

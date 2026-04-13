@@ -9,12 +9,12 @@
 #include "h/ui.h"
 #include "h/player.h"
 #include "h/utilib.h"
-
 #include "h/constants.h"
 
 #define WIN_ROWS 17
 #define WIN_COLS 50
 
+//DRAWS A FIXED SIZE WINDOW FROM A FILE
 void drawFileInWindow(WINDOW *win, const char *filename)
 {
     FILE *file = fopen(filename, "r");
@@ -42,6 +42,8 @@ void drawFileInWindow(WINDOW *win, const char *filename)
     fclose(file);
     wrefresh(win); 
 }
+
+//DISPLAYS SPLASH SCREEN DURING LOADING
 void dispLoad(){
     WINDOW *win = newwin(WIN_ROWS, WIN_COLS, 1, 1);
     keypad(win, TRUE);
@@ -81,7 +83,10 @@ void dispLoad(){
     wrefresh(win); 
     delwin(win);
 }
+
+//DISPLAYS THE COMMANDS LIST/ HELP MENU
 void dispComand(int x, int y){
+    flushinp();
     WINDOW *win = newwin(WIN_ROWS, WIN_COLS, x, y);
     keypad(win, TRUE);
     FILE *file = fopen(COMMANDS, "r");
@@ -124,7 +129,10 @@ void dispComand(int x, int y){
     wrefresh(win);
     delwin(win);
 }
+
+//SAVE FILE MENU
 int showMenu(int numSaves) {
+    flushinp();
     int rows = 17, cols = 50;
     int starty = 1, startx = 1;
 
@@ -201,7 +209,10 @@ int showMenu(int numSaves) {
         }
     }
 }
+
+//SELECT STARTER
 int selectStarter() {
+    flushinp();
     int rows = 17, cols = 50;
     int starty = 1, startx = 1;
 

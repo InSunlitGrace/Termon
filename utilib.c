@@ -1,23 +1,14 @@
-#include "h/utilib.h"
-#include "h/vcanvas.h"
-#include "h/termon.h"
-#include "h/player.h"
-#include "h/saves.h"
-
-#include "h/constants.h"
-
 #include <time.h>
 #include <ncurses.h>
 #include <string.h>
 #include <stdlib.h>
 
-/*
-void delay(float seconds) {
-    clock_t start_time = clock();
-    while (clock() < start_time + seconds * CLOCKS_PER_SEC);
-    return;
-}
-*/
+#include "h/utilib.h"
+#include "h/vcanvas.h"
+#include "h/termon.h"
+#include "h/player.h"
+#include "h/saves.h"
+#include "h/constants.h"
 
 void gexitd(int code){
     endwin();
@@ -42,10 +33,12 @@ void gexitd(int code){
     exit(0);
     return;
 }
+
 void texit(){
     endwin();
     exit(0);
 }
+
 char **ascii(int id){
     char address[30];
     sprintf(address, "./data/%d.tico", id);
@@ -67,13 +60,16 @@ char **ascii(int id){
     fclose(fpt);
     return icon;
 }
+
 void cleanString(char * arr, int length){
     for(int i=0;i<length;i++) arr[i]='\0';
     return;
 }
+
 void rmnlString(char * arr){
     *(arr + strcspn(arr,"\n"))='\0';
 }
+
 void crypt(sline *head) {
     const char key[] = "InSunlitGrace!";  // Change this
     int key_len = strlen(key);
@@ -90,6 +86,7 @@ void crypt(sline *head) {
 }
 
 void freeSprite(char ** sprite){
+    if(!sprite) return;
     for(int i=0;i<4;i++){
         free(*(sprite+i));
     }

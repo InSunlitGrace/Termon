@@ -1,15 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "h/overworld.h"
 #include "h/saves.h"
 #include "h/termon.h"
 #include "h/ui.h"
 #include "h/player.h"
 #include "h/utilib.h"
-
 #include "h/constants.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
+//RETURNS NUMBER OF SAVE FILES
 int saveCount(){
     FILE * saveCount = fopen("saves/saveCount.txt", "r");
     if(saveCount==NULL){
@@ -26,11 +26,13 @@ int saveCount(){
         return atoi(num);
     }
 }
+
+//HANDLES NEW GAME FROM EITHER SAVEFILE OR FROM SCRATCH
 player * handleNewGame(int mode, dex * terdex){
     player * Player = NULL;
     
     if(mode == 0){
-        int starter=selectStarter(isColour);
+        int starter=selectStarter();
         if(starter==-1) gexitd(DEBUG);
         Player = newPlayer(starter, terdex);
         return Player;
@@ -141,8 +143,10 @@ player * handleNewGame(int mode, dex * terdex){
                 curItem->index=index;
                 curItem->itemQuant=quant;
                 while(trav && (trav->index!=index)) trav=trav->next;
-                strcpy(curItem->itemName,trav->itemName);
-                strcpy(curItem->description,trav->description);
+                if(trav){
+                    strcpy(curItem->itemName,trav->itemName);
+                    strcpy(curItem->description,trav->description);
+                }
                 trav=theCatalogue;
             }
             else{
@@ -156,10 +160,18 @@ player * handleNewGame(int mode, dex * terdex){
         /*printf("%s %d %d %d %d\n", saveFileName,Player->savefile,Player->map,Player->x,Player->y);
         printBagData(Player->pBag);
         printTeamData(Player->pTeam);*/
-        free(head);
+        cur = head;
+        sline * next = cur->next;
+        while(cur){
+            free(cur);
+            cur=next;
+            if(next) next=next->next;
+        }
     }
     return Player;
 }
+
+//UPDATES/GENERATES SAVEFILE FOR CURRENT GAME
 void saveFile(){
     int saveNo=thePlayer->savefile;
     if(saveNo==0){

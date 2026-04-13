@@ -40,3 +40,10 @@ extern player * thePlayer;
 extern vmap * Vmap;
 extern dex * masterTerdex;
 extern bag * theCatalogue;
+
+typedef enum {
+    DIR_UP    = 1,
+    DIR_RIGHT = 2,
+    DIR_DOWN  = 3,
+    DIR_LEFT  = 4
+} Direction;
