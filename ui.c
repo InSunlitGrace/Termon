@@ -86,7 +86,6 @@ void dispLoad(){
 
 //DISPLAYS THE COMMANDS LIST/ HELP MENU
 void dispComand(int x, int y){
-    flushinp();
     WINDOW *win = newwin(WIN_ROWS, WIN_COLS, x, y);
     keypad(win, TRUE);
     FILE *file = fopen(COMMANDS, "r");
@@ -132,7 +131,6 @@ void dispComand(int x, int y){
 
 //SAVE FILE MENU
 int showMenu(int numSaves) {
-    flushinp();
     int rows = 17, cols = 50;
     int starty = 1, startx = 1;
 
@@ -212,7 +210,6 @@ int showMenu(int numSaves) {
 
 //SELECT STARTER
 int selectStarter() {
-    flushinp();
     int rows = 17, cols = 50;
     int starty = 1, startx = 1;
 

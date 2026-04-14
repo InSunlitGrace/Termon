@@ -123,7 +123,6 @@ void moveMonTeam(team * teamMate, int dir){
 
 //REMOVES THE CURRENT MON IN TEAM OF thePlayer
 void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
-    flushinp();
     int x,y;
     getbegyx(parent,x,y);
 
@@ -257,7 +256,6 @@ void rmTeamMon(team * teamMate, WINDOW * parent, team ** displayedMon){
 
 //HEALS THE CURRENT MON IN TEAM OF thePlayer
 void healTeamMon(team * teamMate, WINDOW * parent){
-    flushinp();
     int x,y;
     getbegyx(parent,x,y);
     if(thePlayer->pBag->itemQuant==0){
@@ -306,7 +304,6 @@ void healTeamMon(team * teamMate, WINDOW * parent){
     }
     WINDOW * query = newwin(10,18,x+4,y+2);
     keypad(query,TRUE);
-    nodelay(query,TRUE);
     curs_set(0);
 
     int choice=0;
@@ -374,7 +371,6 @@ void healTeamMon(team * teamMate, WINDOW * parent){
 
 //SHOWS THE TEAM WINDOW OF thePlayer
 void showTeam(){
-    flushinp();
     team * teamMate = thePlayer->pTeam;
     termon * curMon;
     WINDOW * teamWin = newwin(16,22,1,(Vmap->cols)+1);
@@ -475,11 +471,9 @@ void showTeam(){
 
 //SHOWS THE BAG WINDOW OF thePlayer
 void showBag(){
-    flushinp();
     bag * theBag = thePlayer->pBag;
     WINDOW * bagWin = newwin(10,24,1,(Vmap->cols)+1);
     keypad(bagWin,TRUE);
-    nodelay(bagWin,TRUE);
     curs_set(0);
     int offset = 2+(24-4-strlen("The Bag"))/2;
     int ch;

@@ -14,13 +14,11 @@
 
 //INITIALISES A NEW MAP
 WINDOW * initOverWorld(){
-    flushinp();
     int rows = Vmap->rows, cols = Vmap->cols;
     int starty = 1, startx = 1;
 
     WINDOW *win = newwin(rows, cols, starty, startx);
     keypad(win, TRUE);
-    nodelay(win, TRUE);
     curs_set(0);
 
     int clr=0;
@@ -120,7 +118,6 @@ void handleMove(WINDOW * win, Direction dir, dex * theTerdex, WINDOW ** oOverWor
             wrefresh(pwin);
         }
         napms(40);
-        flushinp();
         if(target=='#'){
             wrefresh(pwin);
             handleSpawn(pwin, theTerdex);
