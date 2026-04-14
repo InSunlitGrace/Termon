@@ -7,6 +7,8 @@ Either download and extract the compressed zip directly from the [GitHub](https:
 Make sure `make` and `gcc` are installed, or suitably change the `Makefile` so that it works with the desired C compiler.
 
 Open your terminal and navigate to inside the main directory run: `make` or `make all`. This generates the game binary in `./bin/`.
+### Dependecies
+If your version of linux or any other compatible operating systen does not have the `ncurses` library installed, kindly refer to that OS's documentation for installing the said library. 
 
 ## Running the Executable
 
