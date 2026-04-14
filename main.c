@@ -30,7 +30,7 @@ int main(int argc, char * argv[]){
     thePlayer = NULL;
     Vmap = NULL;
 
-    if(argc==2 && (strcmp(argv[1],"color")==0) ){
+    if(argc==2 && (strcmp(argv[1],"colour")==0) ){
         if (!has_colors()) {
             endwin();
             printf("Terminal does not support colors\n");

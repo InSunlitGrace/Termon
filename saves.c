@@ -145,7 +145,7 @@ player * handleNewGame(int mode, dex * terdex){
                 while(trav && (trav->index!=index)) trav=trav->next;
                 if(trav){
                     strncpy(curItem->itemName,trav->itemName,9);
-                    strnpy(curItem->description,trav->description,29);
+                    strncpy(curItem->description,trav->description,29);
                     *(trav->itemName + 9)='\0';
                     *(trav->description + 29)='\0';
                 }
