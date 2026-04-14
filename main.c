@@ -79,7 +79,6 @@ int main(int argc, char * argv[]){
         flushinp();
         ch = wgetch(overWorld);
 
-
         if(ch==KEY_UP) handleMove(overWorld,DIR_UP, theTerdex, &overWorld);
         else if(ch==KEY_DOWN) handleMove(overWorld,DIR_DOWN, theTerdex, &overWorld);
         else if(ch==KEY_LEFT) handleMove(overWorld,DIR_LEFT, theTerdex, &overWorld);

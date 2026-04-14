@@ -7,9 +7,20 @@
 
 #define DEBUG 0
 
+#define SPLASH "staticscr/splash.txt"
+#define COMMANDS "staticscr/commands.txt"
+#define SAVECOUNT "saves/saveCount.txt"
+
 #define MAX_MAP_ROWS 35
 #define MAX_MAP_COLS 75
 #define MAX_SIDE_COLS 40
+
+#define MAX_TICO_ADD_LEN 30
+#define MAX_TICO_COLS 9
+#define MAX_TICO_ROWS 4
+
+#define MAX_ITEM_NAME_LEN 9
+#define MAX_ITEM_DESC_LEN 29
 
 #define BOXCOLOUR 1
 #define HEADCOLOUR 2
@@ -27,13 +38,12 @@
 #define PUDDLECOLOUR 5
 #define PLAYERCOLOUR 5
 
+#define STARTER_LEVEL 7
+#define MAX_IV 31
 #define SPAWN_STEPS 10
 #define DROP_STEPS 25
 #define BASEXP 100
 #define POWER 50
-
-#define SPLASH "staticscr/splash.txt"
-#define COMMANDS "staticscr/commands.txt"
 
 extern int isColour;
 extern player * thePlayer;

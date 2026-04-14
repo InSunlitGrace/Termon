@@ -23,7 +23,7 @@ player * newPlayer(int starter, dex * terdex){
 
         team * newTeam = newPlayer->pTeam=(team *)malloc(sizeof(team));
         newTeam->teamID=1;
-        newTeam->mon=genNewTermon(terdex, starter, 7);
+        newTeam->mon=genNewTermon(terdex, starter, STARTER_LEVEL);
         newTeam->prev = newTeam->next=NULL;
     }
 
@@ -48,9 +48,9 @@ bag * loadItems(){
             head->prev=NULL;
             head->next=NULL;
             head->index=atoi(strtok(line,","));
-            strncpy(head->itemName,strtok(NULL,","),9);
+            strncpy(head->itemName,strtok(NULL,","),MAX_ITEM_NAME_LEN);
             head->itemQuant=0;
-            strncpy(head->description,strtok(NULL,","),29);
+            strncpy(head->description,strtok(NULL,","),MAX_ITEM_DESC_LEN);
             *(head->description+strcspn(head->description,"\n"))='\0';
             cur=head;
         }
@@ -60,9 +60,9 @@ bag * loadItems(){
             cur=cur->next;
             cur->next=NULL;
             cur->index=atoi(strtok(line,","));
-            strncpy(cur->itemName,strtok(NULL,","),9);
+            strncpy(cur->itemName,strtok(NULL,","),MAX_ITEM_NAME_LEN);
             cur->itemQuant=0;
-            strncpy(cur->description,strtok(NULL,","),29);
+            strncpy(cur->description,strtok(NULL,","),MAX_ITEM_DESC_LEN);
             *(cur->description+strcspn(cur->description,"\n"))='\0';   
         }    
     }

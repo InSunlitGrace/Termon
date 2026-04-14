@@ -63,13 +63,13 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             mvwprintw(battleWin,11,2,"Team Slot: %d",teamMon->teamID);
             wattroff(battleWin,COLOR_PAIR(CONTENTCOLOUR));
             wattron(battleWin,COLOR_PAIR(LOGOCOLOUR));
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS-1);j++){
                     mvwaddch(battleWin,3+i,30 +j,*(*(spawnSprite+i) +j));
                 }
             }
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS-1);j++){
                     mvwaddch(battleWin,8+i,30 +j,*(*(battlerSprite+i) +j));
                 }
             }
@@ -97,13 +97,13 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             mvwprintw(battleWin,9,2,"Lvl: %d",battler->lvl);
             mvwprintw(battleWin,10,2,"HP: %d/%d",battler->health,battler->hp);
             mvwprintw(battleWin,11,2,"Team Slot: %d",teamMon->teamID);
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS-1);j++){
                     mvwaddch(battleWin,3+i,30 +j,*(*(spawnSprite+i) +j));
                 }
             }
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS-1);j++){
                     mvwaddch(battleWin,8+i,30 +j,*(*(battlerSprite+i) +j));
                 }
             }

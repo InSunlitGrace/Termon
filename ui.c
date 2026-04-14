@@ -244,8 +244,8 @@ int selectStarter() {
             mvwprintw(win, rows-2, 2, "Use UP/DOWN arrows, Enter to select, Q to quit");
             wattroff(win, COLOR_PAIR(FOOTCOLOUR));
             wattron(win,COLOR_PAIR(LOGOCOLOUR));
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS)-1;j++){
                     mvwaddch(win,4+i,28+j,*(*(starterSprite+i)+j));
                 }
             }
@@ -265,8 +265,8 @@ int selectStarter() {
             for(int i=0;i<3;i++) {
                 mvwprintw(win, 4+i*2, 3, "%s %s", (choice==i)?"-->":" ", options[i]);
             }
-            for(int i=0;i<4;i++){
-                for(int j=0;j<8;j++){
+            for(int i=0;i<MAX_TICO_ROWS;i++){
+                for(int j=0;j<(MAX_TICO_COLS-1);j++){
                     mvwaddch(win,4+i,28+j,*(*(starterSprite+i)+j));
                 }
             }

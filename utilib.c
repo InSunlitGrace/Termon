@@ -40,21 +40,21 @@ void texit(){
 }
 
 char **ascii(int id){
-    char address[30];
+    char address[MAX_TICO_ADD_LEN];
     sprintf(address, "./data/%d.tico", id);
 
     FILE *fpt = fopen(address, "r");
     if (!fpt)
         return NULL;
     char **icon = malloc(sizeof(char *) * 4);
-    char line[16];
+    char line[MAX_TICO_COLS +1];
     int lino = 0;
 
-    while (lino < 4 && fgets(line, sizeof(line), fpt)){
+    while (lino < MAX_TICO_ROWS && fgets(line, sizeof(line), fpt)){
         line[strcspn(line, "\n")] = '\0';
-        icon[lino] = malloc(9);
-        strncpy(icon[lino], line, 8);
-        icon[lino][8] = '\0';
+        icon[lino] = malloc(MAX_TICO_COLS+1);
+        strncpy(icon[lino], line, MAX_TICO_COLS);
+        icon[lino][MAX_TICO_COLS] = '\0';
         lino++;
     }
     fclose(fpt);
@@ -87,7 +87,7 @@ void crypt(sline *head) {
 
 void freeSprite(char ** sprite){
     if(!sprite) return;
-    for(int i=0;i<4;i++){
+    for(int i=0;i<MAX_TICO_ROWS;i++){
         free(*(sprite+i));
     }
     free(sprite);

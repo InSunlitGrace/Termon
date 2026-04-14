@@ -62,7 +62,7 @@ dex * nFromDex(dex * start, int id){
 //UTILITIES
     //GENERATES RANDOM I VALUES FROM 0 TO 31
 int genI(){
-    return (rand()%32);
+    return (rand()%(MAX_IV +1));
 
 }
     //GENERATES STATS USING BASE, LEVEL AND I VALUES

@@ -1,13 +1,17 @@
 #pragma once
+#include <ncurses.h>
+
 #include "termon.h"
 #include "vcanvas.h"
-#include <ncurses.h>
+
+#define MAX_ITEM_NAME_LEN 9
+#define MAX_ITEM_DESC_LEN 29
 
 typedef struct player_bag_item{
     int index;
-    char itemName[10];
+    char itemName[MAX_ITEM_NAME_LEN +1];
     int itemQuant;
-    char description[30];
+    char description[MAX_ITEM_DESC_LEN +1];
     struct player_bag_item * prev;
     struct player_bag_item * next;
 } bag;

@@ -55,7 +55,7 @@ dkms.conf
 *.dwo
 
 # Rest
-saves/
+
 testings/
 allCode.txt
 bin/game

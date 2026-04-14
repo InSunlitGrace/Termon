@@ -11,9 +11,9 @@
 
 //RETURNS NUMBER OF SAVE FILES
 int saveCount(){
-    FILE * saveCount = fopen("saves/saveCount.txt", "r");
+    FILE * saveCount = fopen(SAVECOUNT, "r");
     if(saveCount==NULL){
-        saveCount = fopen("saves/saveCount.txt","w");
+        saveCount = fopen(SAVECOUNT,"w");
         fprintf(saveCount,"0");
         fclose(saveCount);
         return 0;
@@ -146,8 +146,8 @@ player * handleNewGame(int mode, dex * terdex){
                 if(trav){
                     strncpy(curItem->itemName,trav->itemName,9);
                     strncpy(curItem->description,trav->description,29);
-                    *(trav->itemName + 9)='\0';
-                    *(trav->description + 29)='\0';
+                    *(trav->itemName + MAX_ITEM_NAME_LEN)='\0';
+                    *(trav->description + MAX_ITEM_DESC_LEN)='\0';
                 }
                 trav=theCatalogue;
             }
