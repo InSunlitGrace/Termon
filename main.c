@@ -60,13 +60,10 @@ int main(int argc, char * argv[]){
     napms(2000);
     flushinp();
     dispComand(1,1);
-
-    int gameMode = showMenu(saveCount());
-    thePlayer = handleNewGame(gameMode, theTerdex);
-    
     int ch;
+    int gameMode = showMenu(saveCount());
+    thePlayer = handleNewGame(gameMode, theTerdex); 
     Vmap = constructVmap();
-
     WINDOW * overWorld = initOverWorld();
 
     if(!overWorld){
