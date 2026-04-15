@@ -10,6 +10,7 @@
 #define SPLASH "staticscr/splash.txt"
 #define COMMANDS "staticscr/commands.txt"
 #define SAVECOUNT "saves/saveCount.txt"
+#define DEX_FILE "data/dex.csv"
 
 #define MAX_MAP_ROWS 35
 #define MAX_MAP_COLS 75
@@ -38,12 +39,14 @@
 #define PUDDLECOLOUR 5
 #define PLAYERCOLOUR 5
 
+#define DEX_MONS_NUM 21
 #define STARTER_LEVEL 7
 #define MAX_IV 31
 #define SPAWN_STEPS 10
 #define DROP_STEPS 25
 #define BASEXP 100
 #define POWER 50
+#define PVP_TEAM_SIZE 3
 
 extern int isColour;
 extern player * thePlayer;

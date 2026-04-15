@@ -1,4 +1,4 @@
-SRC = main.c ui.c termon.c overworld.c saves.c player.c vcanvas.c battle.c utilib.c constants.c
+SRC = main.c ui.c termon.c overworld.c saves.c player.c vcanvas.c battle.c utilib.c constants.c pvp.c
 OBJ = $(SRC:.c=.o)
 DEP = $(OBJ:.o=.d)
 BIN = bin/game

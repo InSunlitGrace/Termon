@@ -10,24 +10,12 @@
 #include "h/player.h"
 #include "h/vcanvas.h"
 #include "h/utilib.h"
+#include "h/pvp.h"
 #include "h/constants.h"
 
 int main(int argc, char * argv[]){   
     srand(time(NULL));
-
-    printf("\033[8;%d;%dt",MAX_MAP_ROWS,MAX_MAP_COLS+MAX_SIDE_COLS);
-
-    fflush(stdout);
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-    keypad(stdscr, TRUE);
-
-    dex * theTerdex = NULL;
-    theCatalogue = NULL;
-    thePlayer = NULL;
-    Vmap = NULL;
+    int isPVP=0;
 
     if(argc==2 && (strcmp(argv[1],"colour")==0) ){
         if (!has_colors()) {
@@ -48,14 +36,37 @@ int main(int argc, char * argv[]){
 
     }
 
-    else if(argc==2 && (strcmp(argv[1],"color")!=0)){
+    else if(argc==2 && (strcmp(argv[1],"pvp")==0)){
+        isPVP=1;    
+    }
+    else{
         endwin();
-        printf("Incorrect argument! Correct use: \"./game color\" OR \"./game\"\n");
+        printf("Incorrect argument! Correct use: \"./game color\" OR \"./game\" or \"./game pvp\" \n");
         exit(0);
     }
 
-    dispLoad(); 
-    masterTerdex = theTerdex = genDex("data/dex.csv");
+    if(!isPVP) printf("\033[8;%d;%dt",MAX_MAP_ROWS+1,MAX_MAP_COLS+MAX_SIDE_COLS+1);
+    else printf("\033[8;%d;%dt",20+1, 60+1);
+    
+    fflush(stdout);
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    keypad(stdscr, TRUE);
+
+    dex * theTerdex = NULL;
+    theCatalogue = NULL;
+    thePlayer = NULL;
+    Vmap = NULL;
+
+    dispLoad();
+    if(isPVP){
+        napms(1000);
+        pvpMatch();
+        exit(0);
+    } 
+    masterTerdex = theTerdex = genDex(DEX_FILE);
     theCatalogue = loadItems();
     napms(2000);
     flushinp();
