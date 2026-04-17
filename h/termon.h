@@ -41,4 +41,5 @@ int genStat(int base, int lvl, int IV);
 long unsigned int genStartXP(int lvl);
 
 termon * genNewTermon(dex * Terdex, int id, int lvl);
+termon * genPerfectNewTermon(dex * Terdex, int id, int lvl);
 void freeDex(dex * theTerdex);

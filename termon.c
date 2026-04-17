@@ -105,6 +105,36 @@ termon * genNewTermon(dex * Terdex, int id, int lvl){
 
 }
 
+//FOR NEW PERFECT INDIVIDUAL TERMON
+termon * genPerfectNewTermon(dex * Terdex, int id, int lvl){
+    termon * mon = (termon *)malloc(sizeof(termon));
+    dex * template = nFromDex(Terdex,id);
+    if(!template){
+        printf("Pokemon Not Found In Dex To generate\n");
+        return NULL;
+    }
+
+    mon->id=id;
+
+    mon->hpI=
+    mon->atkI=
+    mon->defI=
+    mon->spdI=31;
+
+    mon->hp=genStat(template->b_hp, lvl, mon->hpI);
+    mon->atk=genStat(template->b_atk, lvl, mon->atkI);
+    mon->def=genStat(template->b_def, lvl, mon->defI);
+    mon->spd=genStat(template->b_speed, lvl,mon->spdI);
+
+    mon->xp=genStartXP(lvl);
+    mon->health=mon->hp;
+    strcpy(mon->name, template->name);
+
+    mon->lvl=lvl;
+    return mon;
+
+}
+
 //FREE A DEX
 void freeDex(dex * theTerdex){
     dex * cur, * next;

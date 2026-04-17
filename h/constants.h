@@ -46,7 +46,9 @@
 #define DROP_STEPS 25
 #define BASEXP 100
 #define POWER 50
+
 #define PVP_TEAM_SIZE 3
+#define PVP_MON_LEVEL 50
 
 extern int isColour;
 extern player * thePlayer;

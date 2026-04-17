@@ -57,14 +57,63 @@ void pvpMatch(){
     int ch;
     int choice =1;
 
-    WINDOW * teamSelect = newwin(20,60,1,1);
+    WINDOW * teamSelect = newwin(18,60,1,1);
     keypad(teamSelect,TRUE);
 
+    dex * template = nFromDex(availableDex,choice);
+    char ** optionSprite = ascii(choice);
     while(1){
+        werase(teamSelect);
+        if(isColour) wattron(teamSelect,COLOR_PAIR(BOXCOLOUR));
         box(teamSelect,0,0);
+        if(isColour){
+            wattroff(teamSelect,COLOR_PAIR(BOXCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(HEADCOLOUR));
+        }
         mvwprintw(teamSelect,1,(getmaxx(teamSelect) - strlen("Player 1 Choose!")) /2,"Player %d Choose!",curPlayer);
-        mvwprintw(teamSelect,4,2,"Termon: %s",nFromDex(availableDex,choice)->name);
-        mvwprintw(teamSelect,18,2,"Use UP/DOWN to Select, ENTER to Confirm.");
+        mvwprintw(teamSelect,3,2,"Teammate Number: %d", (curPlayer==1)?(p1t+1):(p2t+1));
+        if(isColour){
+            wattroff(teamSelect,COLOR_PAIR(HEADCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(CONTENTCOLOUR));
+        }
+        mvwprintw(teamSelect,5,2,"Termon: %s",template->name);
+        mvwprintw(teamSelect,6,2,"ID: %d",choice);
+        mvwprintw(teamSelect,7,2,"Level: %d",PVP_MON_LEVEL);
+        if(isColour){
+            wattroff(teamSelect,COLOR_PAIR(CONTENTCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(HEADCOLOUR));
+        }
+        mvwprintw(teamSelect,6,25,"Base Stats");
+        mvwprintw(teamSelect,6,40,"Level Stats");
+        if(isColour){
+            wattroff(teamSelect,COLOR_PAIR(HEADCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(CONTENTCOLOUR));
+        }
+        mvwprintw(teamSelect,8,25,"HP:  %3d",template->b_hp);
+        mvwprintw(teamSelect,9,25,"ATK: %3d", template->b_atk);
+        mvwprintw(teamSelect,10,25,"DEF: %3d", template->b_def);
+        mvwprintw(teamSelect,11,25,"SPD: %3d", template->b_speed);
+        mvwprintw(teamSelect,13,25,"BST: %3d", template->b_hp+template->b_atk+template->b_def+template->b_speed);
+
+
+        mvwprintw(teamSelect,8,40,"HP:  %3d", genStat(template->b_hp, PVP_MON_LEVEL, 31));
+        mvwprintw(teamSelect,9,40,"ATK: %3d", genStat(template->b_atk, PVP_MON_LEVEL, 31));
+        mvwprintw(teamSelect,10,40,"DEF: %3d", genStat(template->b_def, PVP_MON_LEVEL, 31));
+        mvwprintw(teamSelect,11,40,"SPD: %3d", genStat(template->b_speed, PVP_MON_LEVEL, 31));
+        mvwprintw(teamSelect,13,40,"BST: %3d", genStat(template->b_hp, PVP_MON_LEVEL, 31)+genStat(template->b_atk, PVP_MON_LEVEL, 31)+genStat(template->b_def, PVP_MON_LEVEL, 31)+genStat(template->b_speed, PVP_MON_LEVEL, 31));
+        if(isColour){
+            wattron(teamSelect,COLOR_PAIR(CONTENTCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(LOGOCOLOUR));
+        }
+        for(int i=0; i<4;i++){
+            mvwprintw(teamSelect,9+i,4,"%s",optionSprite[i]);
+        }
+        if(isColour){
+            wattroff(teamSelect,COLOR_PAIR(LOGOCOLOUR));
+            wattron(teamSelect,COLOR_PAIR(FOOTCOLOUR));
+        }
+        mvwprintw(teamSelect,16,2,"Use UP/DOWN to Select, ENTER to Confirm.");
+        if(isColour) wattroff(teamSelect,COLOR_PAIR(FOOTCOLOUR));
         wrefresh(teamSelect);
         napms(100);
         ch = wgetch(teamSelect);
@@ -79,14 +128,25 @@ void pvpMatch(){
         }
         else if(ch==10 || ch==KEY_ENTER){
             if(curPlayer==1 && p2t!=PVP_TEAM_SIZE){
+                team * cur = p1->teamMate;
+                while(cur->mon!=NULL){
+                    cur=cur->next;
+                }
+                cur->mon=genPerfectNewTermon(availableDex,choice,PVP_MON_LEVEL);
                 curPlayer=2;
                 p1t++;
             }
             else if(curPlayer=2 && p1t!=PVP_TEAM_SIZE){
+                team * cur = p2->teamMate;
+                while(cur->mon!=NULL){
+                    cur=cur->next;
+                }
+                cur->mon=genPerfectNewTermon(availableDex,choice,PVP_MON_LEVEL);
                 curPlayer=1;
                 p2t++;
             }
             else ch='q';
+            choice = 1;
         }
         if(ch=='q' || ch=='Q'){
             werase(teamSelect);
@@ -99,6 +159,9 @@ void pvpMatch(){
 
             exit(0);
         }
+        template = nFromDex(availableDex,choice);
+        freeSprite(optionSprite);
+        optionSprite=ascii(choice);
     }
     return;
 }

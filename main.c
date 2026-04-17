@@ -16,14 +16,15 @@
 int main(int argc, char * argv[]){   
     srand(time(NULL));
     int isPVP=0;
-
-    if(argc==2 && (strcmp(argv[1],"colour")==0) ){
+    initscr();
+    
+    if((argc==2 && (strcmp(argv[1],"colour")==0)) ||( (argc==3 && (strcmp(argv[2],"colour")==0)) && (argc==3 && (strcmp(argv[1],"pvp")==0)) )){
         if (!has_colors()) {
             endwin();
             printf("Terminal does not support colors\n");
             exit(0);
         }
-
+        if(argc==3 && (strcmp(argv[1],"pvp")==0)) isPVP=1;
         start_color();
         use_default_colors();
         init_pair(BOXCOLOUR, COLOR_RED, -1);
@@ -35,9 +36,12 @@ int main(int argc, char * argv[]){
         isColour=1;
 
     }
-
-    else if(argc==2 && (strcmp(argv[1],"pvp")==0)){
+    else if((argc==2 || argc==3 )&& (strcmp(argv[1],"pvp")==0)){
         isPVP=1;    
+    }
+    else if(argc==1){
+        isColour=0;
+        isPVP=0;
     }
     else{
         endwin();
@@ -49,7 +53,7 @@ int main(int argc, char * argv[]){
     else printf("\033[8;%d;%dt",20+1, 60+1);
     
     fflush(stdout);
-    initscr();
+    
     cbreak();
     noecho();
     curs_set(0);
