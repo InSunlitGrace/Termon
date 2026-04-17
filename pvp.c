@@ -52,8 +52,8 @@ void pvpMatch(){
     dex * availableDex=genDex(DEX_FILE);
 
 
-    int p1t=0;
-    int p2t=0;
+    int p1t=1;
+    int p2t=1;
     int ch;
     int choice =1;
 
@@ -62,7 +62,9 @@ void pvpMatch(){
 
     dex * template = nFromDex(availableDex,choice);
     char ** optionSprite = ascii(choice);
-    while(1){
+
+    int isSelecting=1;
+    while(isSelecting){
         werase(teamSelect);
         if(isColour) wattron(teamSelect,COLOR_PAIR(BOXCOLOUR));
         box(teamSelect,0,0);
@@ -71,7 +73,7 @@ void pvpMatch(){
             wattron(teamSelect,COLOR_PAIR(HEADCOLOUR));
         }
         mvwprintw(teamSelect,1,(getmaxx(teamSelect) - strlen("Player 1 Choose!")) /2,"Player %d Choose!",curPlayer);
-        mvwprintw(teamSelect,3,2,"Teammate Number: %d", (curPlayer==1)?(p1t+1):(p2t+1));
+        mvwprintw(teamSelect,3,2,"Teammate Number: %d", (curPlayer==1)?(p1t):(p2t));
         if(isColour){
             wattroff(teamSelect,COLOR_PAIR(HEADCOLOUR));
             wattron(teamSelect,COLOR_PAIR(CONTENTCOLOUR));
@@ -122,33 +124,31 @@ void pvpMatch(){
             choice ++;
             if(choice>DEX_MONS_NUM) choice=1;
         }
-        if(ch==KEY_UP || ch=='u'){
+        else if(ch==KEY_UP || ch=='u'){
             choice--;
             if(choice<1) choice = DEX_MONS_NUM;
         }
         else if(ch==10 || ch==KEY_ENTER){
-            if(curPlayer==1 && p2t!=PVP_TEAM_SIZE){
+            if(curPlayer==1 && p1t<=PVP_TEAM_SIZE){
                 team * cur = p1->teamMate;
-                while(cur->mon!=NULL){
-                    cur=cur->next;
-                }
+                while(cur->mon!=NULL) cur=cur->next;
                 cur->mon=genPerfectNewTermon(availableDex,choice,PVP_MON_LEVEL);
-                curPlayer=2;
                 p1t++;
+                curPlayer=2;
             }
-            else if(curPlayer=2 && p1t!=PVP_TEAM_SIZE){
+            else if(curPlayer==2 && p2t<=PVP_TEAM_SIZE){
                 team * cur = p2->teamMate;
-                while(cur->mon!=NULL){
-                    cur=cur->next;
-                }
+                while(cur->mon!=NULL) cur=cur->next;
                 cur->mon=genPerfectNewTermon(availableDex,choice,PVP_MON_LEVEL);
-                curPlayer=1;
                 p2t++;
+                curPlayer=1;
             }
-            else ch='q';
-            choice = 1;
+            if(p1t>PVP_TEAM_SIZE && p2t>PVP_TEAM_SIZE){
+                isSelecting=0;
+            }
+            choice=1;
         }
-        if(ch=='q' || ch=='Q'){
+        else if(ch=='q' || ch=='Q'){
             werase(teamSelect);
             wrefresh(teamSelect);
             delwin(teamSelect);
@@ -156,12 +156,39 @@ void pvpMatch(){
             freeDex(availableDex);
             freePlyr(p1);
             freePlyr(p2);
-
             exit(0);
         }
         template = nFromDex(availableDex,choice);
         freeSprite(optionSprite);
         optionSprite=ascii(choice);
     }
+    werase(teamSelect);
+    wrefresh(teamSelect);
+    delwin(teamSelect);
+    int isPlaying =1;
+    WINDOW * matchWin = newwin(18,60,1,1);
+    keypad(matchWin,TRUE);
+    while(isPlaying){
+
+    }
+    /*team * iterator = p1->teamMate;
+    while(iterator){
+        termon * mon = iterator->mon;
+        printf("%d %s %d %d %d %d %d\n", iterator->teamID, mon->name, mon->hp, mon->atk, mon->def, mon->spd, mon->id);
+        iterator=iterator->next;
+    }
+
+    iterator = p2->teamMate;
+    while(iterator){
+        termon * mon = iterator->mon;
+        printf("%d %s %d %d %d %d %d\n", iterator->teamID, mon->name, mon->hp, mon->atk, mon->def, mon->spd, mon->id);
+        iterator=iterator->next;
+    }*/
+    freeDex(availableDex);
+    freePlyr(p1);
+    freePlyr(p2);
+    exit(0);
+    endwin();
+
     return;
 }
