@@ -9,5 +9,10 @@ typedef struct pvpPlayer
     team * teamMate;        
 } plyr;
 
+void freePlyr(plyr * thePlyr);
+
+int allFaintedPlyr(plyr * aPlyr);
+
+void endGame(int mode);
 
 void pvpMatch();

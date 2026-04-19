@@ -92,3 +92,8 @@ void freeSprite(char ** sprite){
     }
     free(sprite);
 }
+
+int mdh(int x, int y){
+    if(x>y) return x;
+    return y;
+}
