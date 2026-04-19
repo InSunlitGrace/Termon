@@ -43,7 +43,7 @@ vmap * constructVmap(){
 
     Vmap->map = (char **)malloc(sizeof(char *)*(rows));
     for(int i=0; i<(rows); i++){
-        *((Vmap->map)+i)=(char *)malloc(sizeof(char)*(cols+1));
+        *((Vmap->map)+i)=(char *)malloc(sizeof(char)*(cols+2));
     }
 
 
@@ -75,6 +75,8 @@ void freeVmap(vmap * Vmap){
     for(int i=0; i<rows; i++){
         free(*(map+i));
     }
+    free(Vmap->spawns);
+    free(Vmap->map);
     free(Vmap);
 }
 

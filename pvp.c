@@ -12,13 +12,13 @@
 
 void freePlyr(plyr * thePlyr){
     team * curTeam = thePlyr->teamMate;
-    while(curTeam->next){
-        if(curTeam->mon!=NULL) free(curTeam->mon);
-        curTeam=curTeam->next;
-        free(curTeam->prev);
+    team * next;
+    while(curTeam){
+        next = curTeam->next;
+        if(curTeam->mon) free(curTeam->mon);
+        free(curTeam);
+        curTeam = next;
     }
-    free(curTeam->mon);
-    free(curTeam);
     free(thePlyr);
 }
 

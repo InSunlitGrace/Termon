@@ -11,18 +11,18 @@
 
 //RETURNS NUMBER OF SAVE FILES
 int saveCount(){
-    FILE * saveCount = fopen(SAVECOUNT, "r");
-    if(saveCount==NULL){
-        saveCount = fopen(SAVECOUNT,"w");
-        fprintf(saveCount,"0");
-        fclose(saveCount);
+    FILE * saveCountFile = fopen(SAVECOUNT, "r");
+    if(saveCountFile==NULL){
+        saveCountFile = fopen(SAVECOUNT,"w");
+        fprintf(saveCountFile,"0");
+        fclose(saveCountFile);
         return 0;
     }
     else{
         char num[4];
         for(int i=0; i<4; i++) num[i]='\0';
-        fgets(num,4,saveCount);
-        fclose(saveCount);
+        fgets(num,4,saveCountFile);
+        fclose(saveCountFile);
         return atoi(num);
     }
 }
