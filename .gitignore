@@ -62,3 +62,4 @@ bin/game
 mkf
 lines
 genAllCode.sh
+leaks.txt
