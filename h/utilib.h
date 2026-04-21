@@ -9,6 +9,7 @@
 
 // void delay(float seconds);
 void gexitd(int code);
+void gexit_without(int code);
 void texit();
 char ** ascii(int id);
 void cleanString(char * arr, int length);

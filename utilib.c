@@ -30,7 +30,30 @@ void gexitd(int code){
             if(cur) cur=cur->next;
         }
     }
-    exit(0);
+    exit(code);
+    return;
+}
+
+void gexit_without(int code){
+    if(code==1){
+        printDex(masterTerdex);
+        printPlayerData();
+        printVmap(Vmap);
+    }
+    if(Vmap) freeVmap(Vmap);
+    if(thePlayer) freePlayer();
+    if(masterTerdex) freeDex(masterTerdex);
+    if(theCatalogue){
+        bag * cur, * prev;
+        cur=theCatalogue->next;
+        prev=theCatalogue;
+        while(prev){
+            free(prev);
+            prev=cur;
+            if(cur) cur=cur->next;
+        }
+    }
+    exit(code);
     return;
 }
 
@@ -44,8 +67,11 @@ char **ascii(int id){
     sprintf(address, "./data/%d.tico", id);
 
     FILE *fpt = fopen(address, "r");
-    if (!fpt)
-        return NULL;
+    if (!fpt){
+        endwin();
+        printf("Could not open icon for termon id=%d",id);
+        gexit_without(2);
+    }
     char **icon = malloc(sizeof(char *) * 4);
     char line[MAX_TICO_COLS +1];
     int lino = 0;

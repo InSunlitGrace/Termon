@@ -7,6 +7,7 @@
 #include "h/saves.h"
 #include "h/termon.h"
 #include "h/ui.h"
+#include "h/utilib.h"
 #include "h/player.h"
 #include "h/constants.h"
 
@@ -15,8 +16,9 @@ dex * genDex(char arr[]){
 
     FILE * dexfile = fopen(arr, "r");
     if(!dexfile){
-        printf("ERROR: Dex File Not Found\n");
-        return NULL;
+        endwin();
+        perror("ERROR: Dex File Not Found\n");
+        gexit_without(2);
     }
 
     char line[256];

@@ -36,7 +36,8 @@ bag * loadItems(){
     FILE * fpt = fopen("data/items.csv", "r");
     if(!fpt){
         endwin();
-        exit(1);
+        perror("Error: Could Not Locate Item File. Please reinstall the game.");
+        gexit_without(2);
     }
     bag * head = NULL;
     bag * cur=NULL;

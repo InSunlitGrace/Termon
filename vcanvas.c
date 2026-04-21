@@ -5,6 +5,7 @@
 
 #include "h/vcanvas.h"
 #include "h/constants.h"
+#include "h/utilib.h"
 
 //CONSTRUCTS THE CURRENT OVERWORLD MAP
 vmap * constructVmap(){
@@ -17,11 +18,10 @@ vmap * constructVmap(){
 
     FILE * mpd = fopen(dataFileName, "r");
     if(!mpd){
-        
         endwin();
         printf("ERROR! MAP DATA %d NOT FOUND\n", thePlayer->map);
         printf("%s\n",dataFileName);
-        exit(1);
+        gexit_without(2);
     }
 
     vmap * Vmap = (vmap *)malloc(sizeof(vmap));
@@ -51,7 +51,7 @@ vmap * constructVmap(){
     if(!mp){
         endwin();
         printf("ERROR! MAP %d NOT FOUND\n", thePlayer->map);
-        exit(1);
+        gexit_without(2);
     }
     for(int i=0; i<rows; i++){
         fgets(*((Vmap->map)+i), cols+2, mp);

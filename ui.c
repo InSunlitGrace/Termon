@@ -22,7 +22,7 @@ void drawFileInWindow(WINDOW *win, const char *filename)
     {
         endwin();
         fprintf(stderr, "Error: Could not open %s\n", filename);
-        exit(EXIT_FAILURE);
+        gexit_without(2);
     }
 
     werase(win);     
@@ -52,7 +52,7 @@ void dispLoad(){
     {
         endwin();
         fprintf(stderr, "Error: Could not open %s\n", SPLASH);
-        exit(EXIT_FAILURE);
+        gexit_without(2);
     }
     werase(win);
     if(isColour){
@@ -93,7 +93,7 @@ void dispComand(int x, int y){
     {
         endwin();
         fprintf(stderr, "Error: Could not open %s\n", COMMANDS);
-        exit(EXIT_FAILURE);
+        gexit_without(2);
     }
     werase(win);
     if(isColour){

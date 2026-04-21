@@ -56,6 +56,11 @@ player * handleNewGame(int mode, dex * terdex){
         head->next=NULL;
 
         FILE * saveFile = fopen(saveFileName,"r");
+        if(!saveFile){
+            endwin();
+            perror("Colud not open requested savefile!\n");
+            gexit_without(2);
+        }
         fgets(cur->contents,513,saveFile);
         rmnlString(cur->contents);
         while(fgets(line,513,saveFile)){
