@@ -10,7 +10,7 @@
 #include "h/constants.h"
 
 //RETURNS NUMBER OF SAVE FILES
-int saveCount(){
+long long saveCount(){
     FILE * saveCountFile = fopen(SAVECOUNT, "r");
     if(saveCountFile==NULL){
         saveCountFile = fopen(SAVECOUNT,"w");
@@ -19,16 +19,16 @@ int saveCount(){
         return 0;
     }
     else{
-        char num[4];
-        for(int i=0; i<4; i++) num[i]='\0';
-        fgets(num,4,saveCountFile);
+        char num[22];
+        for(int i=0; i<22; i++) num[i]='\0';
+        fgets(num,22,saveCountFile);
         fclose(saveCountFile);
-        return atoi(num);
+        return (long long)strtoll(num, NULL, 10);
     }
 }
 
 //HANDLES NEW GAME FROM EITHER SAVEFILE OR FROM SCRATCH
-player * handleNewGame(int mode, dex * terdex){
+player * handleNewGame(long long mode, dex * terdex){
     player * Player = NULL;
     
     if(mode == 0){
@@ -48,7 +48,7 @@ player * handleNewGame(int mode, dex * terdex){
 
         char saveFileName[100];
         cleanString(saveFileName,100);
-        sprintf(saveFileName,"saves/%d.tps",mode);
+        sprintf(saveFileName,"saves/%lld.tps",mode);
 
         sline * head, * cur;
         cur = head = (sline *)malloc(sizeof(sline));
@@ -180,12 +180,12 @@ player * handleNewGame(int mode, dex * terdex){
 
 //UPDATES/GENERATES SAVEFILE FOR CURRENT GAME
 void saveFile(){
-    int saveNo=thePlayer->savefile;
+    long long saveNo=thePlayer->savefile;
     if(saveNo==0){
         saveNo=1+saveCount();
         thePlayer->savefile=saveNo;
         FILE * scf = fopen("saves/saveCount.txt","w");
-        fprintf(scf,"%d\n", saveNo);
+        fprintf(scf,"%lld\n", saveNo);
         fclose(scf);
     }
 
@@ -194,7 +194,7 @@ void saveFile(){
 
     head->next=NULL;
     cleanString(curSL->contents,513);
-    sprintf(head->contents,"%d,%d,%d,%d,", thePlayer->savefile,thePlayer->map,thePlayer->x,thePlayer->y);
+    sprintf(head->contents,"%lld,%d,%d,%d,", thePlayer->savefile,thePlayer->map,thePlayer->x,thePlayer->y);
 
     curSL->next = (sline *)malloc(sizeof(sline));
     curSL=curSL->next;
@@ -229,7 +229,7 @@ void saveFile(){
 
     char saveFileName[100];
     cleanString(saveFileName,100);
-    sprintf(saveFileName, "saves/%d.tps", saveNo);
+    sprintf(saveFileName, "saves/%lld.tps", saveNo);
 
     crypt(head);
 

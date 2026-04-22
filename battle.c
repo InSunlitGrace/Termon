@@ -326,7 +326,6 @@ team * handleTeamFaint(WINDOW * parent, termon * theMon, int * confirm ){
     faintWin = newwin(10, 34, 4, 1+3+Vmap->cols);
     keypad(faintWin,TRUE);
     curs_set(0);
-    nodelay(faintWin,TRUE);
     int ch;
     int option=0;
     team * trav = teamMate;

@@ -7,7 +7,7 @@ typedef struct save{
     struct save * next;
 } sline;
 
-int saveCount();
-player * handleNewGame(int mode, dex * terdex);
+long long saveCount();
+player * handleNewGame(long long mode, dex * terdex);
 void saveFile();
 void rmnlString(char * arr);

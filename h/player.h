@@ -28,7 +28,7 @@ typedef struct player_obj{
     int map;
     int x;
     int y;
-    int savefile;
+    long long savefile;
     team * pTeam;
     bag * pBag;
 } player;

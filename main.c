@@ -70,13 +70,16 @@ int main(int argc, char * argv[]){
         pvpMatch();
         exit(0);
     } 
+    else{
+        napms(500);
+    }
     masterTerdex = theTerdex = genDex(DEX_FILE);
     theCatalogue = loadItems();
     napms(2000);
     flushinp();
     dispComand(1,1);
     int ch;
-    int gameMode = showMenu(saveCount());
+    long long gameMode = showMenu(saveCount());
     thePlayer = handleNewGame(gameMode, theTerdex); 
     Vmap = constructVmap();
     WINDOW * overWorld = initOverWorld();

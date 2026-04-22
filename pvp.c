@@ -738,7 +738,5 @@ void pvpMatch(){
     freePlyr(p1);
     freePlyr(p2);
     endwin();
-    exit(0);
-
     return;
 }

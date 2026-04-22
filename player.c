@@ -464,7 +464,7 @@ void showTeam(){
         }
         if(ch=='T' || ch=='t') break;
     }
-    wclear(teamWin);
+    werase(teamWin);
     wrefresh(teamWin);
     delwin(teamWin);
     return;
@@ -493,6 +493,7 @@ void showBag(){
             mvwprintw(bagWin,5,2,"%s",theBag->description);
             wattroff(bagWin,COLOR_PAIR(CONTENTCOLOUR));
             wattron(bagWin,COLOR_PAIR(FOOTCOLOUR));
+            mvwprintw(bagWin,7,2,"< | >: Switch item");
             mvwprintw(bagWin,8,2,"B: Close Bag");
             wattroff(bagWin,COLOR_PAIR(FOOTCOLOUR));
         }
@@ -502,6 +503,7 @@ void showBag(){
             mvwprintw(bagWin,3,2,"%s",theBag->itemName);
             mvwprintw(bagWin,4,2,"Quantity: %d",theBag->itemQuant);
             mvwprintw(bagWin,5,2,"%s",theBag->description);
+            mvwprintw(bagWin,7,2,"< | >: Switch item");
             mvwprintw(bagWin,8,2,"B: Close Bag");
         }
         wrefresh(bagWin);

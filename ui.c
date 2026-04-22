@@ -122,7 +122,8 @@ void dispComand(int x, int y){
     }
     fclose(file);
     if(isColour) wattroff(win,COLOR_PAIR(FOOTCOLOUR));
-    wrefresh(win); 
+    wrefresh(win);
+    napms(500); 
     wgetch(win);
     werase(win);
     wrefresh(win);
