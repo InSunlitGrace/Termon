@@ -589,7 +589,7 @@ void freeTeam(){
     team *next;
     while(cur){
         next=cur->next;
-        free(cur->mon);
+        if(cur->mon!=NULL) (cur->mon);
         free(cur);
         cur=next;
     }
@@ -597,9 +597,11 @@ void freeTeam(){
 }
 
 void freePlayer(){
-    freeTeam();
-    freeBag();
-    free(thePlayer);
+    if(thePlayer!=NULL){
+        if(thePlayer->pTeam!=NULL) freeTeam();
+        if(thePlayer->pBag!=NULL) freeBag();
+        free(thePlayer);
+    }
 }
 
 //DEBUG

@@ -9,7 +9,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
-#define BASE 1000
+
 
 //INITIALISES A NEW BATTLE
 void startBattle(WINDOW * parentWin, dex * theTerdex){
@@ -438,7 +438,7 @@ int isFainted(termon * mon){
 void giveXP(termon * winner, termon * loser){
     int L1 = winner->lvl;
     int L2 = loser->lvl;
-    winner->xp += ((BASE)*L2)/L1;
+    winner->xp += ((BASEXP)*L2)/L1;
     while((winner->xp)>=(genStartXP((winner->lvl)+1))){
         winner->lvl+=1;
         winner->health+=genStat((nFromDex(masterTerdex,winner->id))->b_hp,winner->lvl,winner->hpI)-winner->hp;

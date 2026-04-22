@@ -44,7 +44,7 @@
 #define MAX_IV 31
 #define SPAWN_STEPS 10
 #define DROP_STEPS 25
-#define BASEXP 100
+#define BASEXP 250
 #define POWER 50
 
 #define PVP_TEAM_SIZE 3
