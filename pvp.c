@@ -395,7 +395,7 @@ void pvpMatch(){
                     curMonP2->health -= dmg = damCalc(curMonP1,curMonP2);
                     if(!isFainted(curMonP2)){
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP2->name,dmg);
+                        mvwprintw(matchWin,15,2,"2's %s lost %d HP!",curMonP2->name,dmg);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -404,7 +404,7 @@ void pvpMatch(){
                         curMonP1->health -= dmg = damCalc(curMonP2,curMonP1);
                         if(isFainted(curMonP1)){
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP1->name);
+                            mvwprintw(matchWin,15,2,"1's %s FAINTED!",curMonP1->name);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -426,7 +426,7 @@ void pvpMatch(){
                         }
                         else{
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP1->name,dmg);
+                            mvwprintw(matchWin,15,2,"1's %s lost %d HP!",curMonP1->name,dmg);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -435,7 +435,7 @@ void pvpMatch(){
                     }
                     else{
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP2->name);
+                        mvwprintw(matchWin,15,2,"2's %s FAINTED!",curMonP2->name);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -461,7 +461,7 @@ void pvpMatch(){
                     curMonP1->health -= dmg = damCalc(curMonP2,curMonP1);
                     if(!isFainted(curMonP1)){
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP1->name,dmg);
+                        mvwprintw(matchWin,15,2,"1's %s lost %d HP!",curMonP1->name,dmg);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -470,7 +470,7 @@ void pvpMatch(){
                         curMonP2->health -= dmg = damCalc(curMonP1,curMonP2);
                         if(isFainted(curMonP2)){
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP2->name);
+                            mvwprintw(matchWin,15,2,"2's %s FAINTED!",curMonP2->name);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -492,7 +492,7 @@ void pvpMatch(){
                         }
                         else{
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP2->name,dmg);
+                            mvwprintw(matchWin,15,2,"2's %s lost %d HP!",curMonP2->name,dmg);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -501,7 +501,7 @@ void pvpMatch(){
                     }
                     else{
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP1->name);
+                        mvwprintw(matchWin,15,2,"1's %s FAINTED!",curMonP1->name);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -527,7 +527,7 @@ void pvpMatch(){
                         curMonP2->health -= dmg = damCalc(curMonP1,curMonP2);
                         if(!isFainted(curMonP2)){
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP2->name,dmg);
+                            mvwprintw(matchWin,15,2,"2's %s lost %d HP!",curMonP2->name,dmg);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -536,7 +536,7 @@ void pvpMatch(){
                             curMonP1->health -= dmg = damCalc(curMonP2,curMonP1);
                             if(isFainted(curMonP1)){
                                 if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                                mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP1->name);
+                                mvwprintw(matchWin,15,2,"1's %s FAINTED!",curMonP1->name);
                                 if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                                 wrefresh(matchWin);
                                 mvwprintw(matchWin,15,1,"                    ");
@@ -558,7 +558,7 @@ void pvpMatch(){
                             }
                             else{
                                 if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                                mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP1->name,dmg);
+                                mvwprintw(matchWin,15,2,"1's %s lost %d HP!",curMonP1->name,dmg);
                                 if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                                 wrefresh(matchWin);
                                 mvwprintw(matchWin,15,1,"                    ");
@@ -567,7 +567,7 @@ void pvpMatch(){
                         }
                         else{
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP2->name);
+                            mvwprintw(matchWin,15,2,"2's %s FAINTED!",curMonP2->name);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -593,7 +593,7 @@ void pvpMatch(){
                         curMonP1->health -= dmg = damCalc(curMonP2,curMonP1);
                         if(!isFainted(curMonP1)){
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP1->name,dmg);
+                            mvwprintw(matchWin,15,2,"1's %s lost %d HP!",curMonP1->name,dmg);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -602,7 +602,7 @@ void pvpMatch(){
                             curMonP2->health -= dmg = damCalc(curMonP1,curMonP2);
                             if(isFainted(curMonP2)){
                                 if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                                mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP2->name);
+                                mvwprintw(matchWin,15,2,"2's %s FAINTED!",curMonP2->name);
                                 if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                                 wrefresh(matchWin);
                                 mvwprintw(matchWin,15,1,"                    ");
@@ -624,7 +624,7 @@ void pvpMatch(){
                             }
                             else{
                                 if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                                mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP2->name,dmg);
+                                mvwprintw(matchWin,15,2,"2's %s lost %d HP!",curMonP2->name,dmg);
                                 if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                                 wrefresh(matchWin);
                                 mvwprintw(matchWin,15,1,"                    ");
@@ -633,7 +633,7 @@ void pvpMatch(){
                         }
                         else{
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP1->name);
+                            mvwprintw(matchWin,15,2,"1's %s FAINTED!",curMonP1->name);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -661,7 +661,7 @@ void pvpMatch(){
                     curMonP2->health -= dmg = damCalc(curMonP1,curMonP2);
                     if(isFainted(curMonP2)){
                             if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                            mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP2->name);
+                            mvwprintw(matchWin,15,2,"2's %s FAINTED!",curMonP2->name);
                             if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                             wrefresh(matchWin);
                             mvwprintw(matchWin,15,1,"                    ");
@@ -683,7 +683,7 @@ void pvpMatch(){
                     }
                     else{
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP2->name,dmg);
+                        mvwprintw(matchWin,15,2,"2's %s lost %d HP!",curMonP2->name,dmg);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -694,7 +694,7 @@ void pvpMatch(){
                     curMonP1->health -= dmg = damCalc(curMonP2,curMonP1);
                     if(isFainted(curMonP1)){
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s FAINTED!",curMonP1->name);
+                        mvwprintw(matchWin,15,2,"1's %s FAINTED!",curMonP1->name);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
@@ -716,7 +716,7 @@ void pvpMatch(){
                     }
                     else{
                         if(isColour) wattron(matchWin,COLOR_PAIR(OPTIONCOLOUR));
-                        mvwprintw(matchWin,15,2,"%s -%d HP!",curMonP1->name,dmg);
+                        mvwprintw(matchWin,15,2,"1's %s lost %d HP!",curMonP1->name,dmg);
                         if(isColour) wattroff(matchWin,COLOR_PAIR(OPTIONCOLOUR));
                         wrefresh(matchWin);
                         mvwprintw(matchWin,15,1,"                    ");
