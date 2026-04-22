@@ -14,7 +14,7 @@
 //INITIALISES A NEW BATTLE
 void startBattle(WINDOW * parentWin, dex * theTerdex){
     flushinp();
-
+    napms(50);
     int spawnCount = Vmap->spawnCount;
     if(spawnCount==0) return;
     team * teamMon =thePlayer->pTeam;
@@ -89,7 +89,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
             box(battleWin,0,0);
             mvwprintw(battleWin,1,1+(40-(strlen("A Termon Appeared!")))/2,"%.*s",(int)strlen("A Termon Appeared!"),"A Termon Appeared!");
             mvwprintw(battleWin,13,2,"A-Attack C-Catch R-Run");
-            mvwprintw(battleWin,14,2,"LEFT/RIGHT ARROW-Swap Mon");            
+            mvwprintw(battleWin,14,2,"P/N -Swap Mon");            
             mvwprintw(battleWin,3,2,"%s",theSpawn->name);
             mvwprintw(battleWin,4,2,"Lvl: %d",theSpawn->lvl);
             mvwprintw(battleWin,5,2,"HP: %d/%d",theSpawn->health,theSpawn->hp);
@@ -212,7 +212,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                 }
             }
         }
-        else if(ch=='p' || ch=='P' || ch==KEY_LEFT){
+        else if(ch=='p' || ch=='P' ){
             team * previous = teamMon->prev;
             while(previous){
                 if(previous->mon->health==0){
@@ -241,7 +241,7 @@ void startBattle(WINDOW * parentWin, dex * theTerdex){
                 }
             }
         }
-        else if(ch=='n' || ch=='N' || ch==KEY_RIGHT){
+        else if(ch=='n' || ch=='N' ){
             team * nexto = teamMon->next;
             while(nexto){
                 if(nexto->mon->health==0){

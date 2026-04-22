@@ -63,3 +63,4 @@ mkf
 lines
 genAllCode.sh
 leaks.txt
+*.tps
