@@ -239,19 +239,6 @@ void saveFile(){
         fprintf(fpt,"%s\n",curSL->contents);
         curSL=curSL->next;
     }
-    /* fprintf(fpt,"%d,%d,%d,%d,\n", thePlayer->savefile,thePlayer->map,thePlayer->x,thePlayer->y);
-    fprintf(fpt,"==ITEMS==\n");
-    bag * item = thePlayer->pBag;
-    while(item){
-        fprintf(fpt,"%d,%d,\n",item->index,item->itemQuant);
-        item=item->next;
-    }
-    fprintf(fpt,"==TEAM==\n");
-    team * teamm = thePlayer->pTeam;
-    while(teamm){
-        fprintf(fpt,"%d,%d,%lu,%d,%d,%d,%d,%d,\n",teamm->mon->id,teamm->mon->lvl,teamm->mon->xp,teamm->mon->health,teamm->mon->hpI,teamm->mon->atkI,teamm->mon->defI,teamm->mon->spdI);
-        teamm=teamm->next;
-    } */
     fclose(fpt);
     sline * cur=curSL=head;
     while(curSL){

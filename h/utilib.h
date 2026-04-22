@@ -7,7 +7,7 @@
 #include "termon.h"
 #include "saves.h"
 
-// void delay(float seconds);
+
 void gexitd(int code);
 void gexit_without(int code);
 void texit();
